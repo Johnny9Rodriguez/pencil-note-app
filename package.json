@@ -1,0 +1,15 @@
+{
+  "name": "pencil-note-app",
+  "version": "1.0.0",
+  "description": "A full-stack note-taking application built with React, Express, Node.js, Passport.js, and PostgreSQL. Create, view, and edit notes securely with user account functionality.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joe Pytlik",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": ["packages/*"]
+  }
+}
