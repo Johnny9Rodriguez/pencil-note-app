@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    background: linear-gradient(180deg, #10222e, #01111e);
+}
+
+h1, button {
+    user-select: none;
+}
+
+textarea {
+    resize: none;
+    min-width: none;
+}
+
+textarea:focus {
+    outline: none;
+}
+
+.noteSelection {
+    width: 256px;
+    min-width: 256px;
+    overflow: scroll;
+    border: 1px solid #004C5B;
+}
+
+.noteEditor {
+    border: 1px solid #004C5B;
+    border-left: none;
+}
