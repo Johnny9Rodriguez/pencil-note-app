@@ -5,7 +5,7 @@ export const Navigation = () => {
   return (
     <div className='pt-6 pb-3 flex items-center justify-between'>
       <div className='flex items-center gap-x-1'>
-        <Icon icon="pixelarticons:note" className='text-white text-3xl' />
+        <Icon icon="material-symbols-light:sticky-note-2-outline-sharp" className='text-brightTeal text-3xl' />
         <h1 className='text-white text-4xl'>Pencil</h1>
       </div>
       <div className='flex items-center gap-7'>

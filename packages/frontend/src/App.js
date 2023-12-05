@@ -1,11 +1,13 @@
 import React from 'react'
 import { Dashboard } from './pages/Dashboard'
+import store from './store';
+import { Provider } from 'react-redux';
 
 
 export const App = () => {
     return (
-        <div>
+        <Provider store={store}>
             <Dashboard />
-        </div>
+        </Provider>
     )
 }

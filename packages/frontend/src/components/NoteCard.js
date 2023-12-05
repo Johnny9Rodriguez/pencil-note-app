@@ -5,9 +5,9 @@ export const NoteCard = (props) => {
 
   return (
     <button 
-      className={`flex flex-col w-full p-2 bg-darkTeal text-white ${selected ? 'border border-brightTeal bg-opacity-100' : 'bg-opacity-25'} hover:bg-brightTeal hover:text-black`}>
-        <p className='font-bold'>Great Idea!</p>
-        <p>Make a million dollars.</p>
+      className={`flex flex-col w-full p-2 bg-darkTeal text-white ${selected ? 'border border-brightTeal bg-opacity-100' : 'bg-opacity-50'} hover:bg-brightTeal hover:text-black`}>
+        <p className='font-bold'>{title}</p>
+        <p>{content}</p>
     </button>
   )
 }

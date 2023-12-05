@@ -16,6 +16,9 @@ module.exports = {
       },
       maxHeight: {
         '600': '600px'
+      },
+      minHeight: {
+        '480': '480px'
       }
     },
     screens: {

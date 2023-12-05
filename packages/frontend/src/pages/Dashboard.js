@@ -5,7 +5,7 @@ import { NoteEditor } from '../components/NoteEditor';
 
 export const Dashboard = () => {
     return (
-        <div className='flex flex-col mx-auto h-screen'>
+        <div className='flex flex-col mx-auto h-screen min-h-480'>
             <nav className='mx-auto px-6 w-full max-w-1024'>
                 <Navigation />
             </nav>
