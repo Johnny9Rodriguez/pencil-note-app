@@ -4,25 +4,39 @@ import { nanoid } from 'nanoid';
 export const noteDataSlice = createSlice({
     name: 'noteData',
     initialState: {
-        noteIds: new Set('1234', '5678'),
+        noteIds: ['1234', '5678'],
         notes: [
-            { id: '1234', title: 'Great idea!', content: 'Make a million dollars.'},
-            { id: '5678', title: 'Another idea', content: 'Make 2 million dollars.'}
+            { id: '1234', title: 'Great idea!', content: 'Make a million dollars.' },
+            { id: '5678', title: 'Another idea', content: 'Make 2 million dollars.' }
         ],
-        selectedNote: '5678'
+        selectedNote: { id: '5678', title: 'Another idea', content: 'Make 2 million dollars.' }
     },
     reducers: {
         add: (state, action) => {
             let id = nanoid(4);
-            while (state.noteIds.has(id)) {
+            while (state.noteIds.includes(id)) {
                 id = nanoid(4);
             }
-            state.noteIds.add(id);
+            state.noteIds.push(id);
         },
-        remove: (state, action) => {},
-        update: (state, action) => {},
-        select: (state, action) => {
+        remove: (state, action) => { },
+        update: (state, action) => {
+            const { id, title, content } = action.payload;
+            const note = state.notes.find(note => note.id === id);
 
+            if (note) {
+                // Update note state
+                note.title = title;
+                note.content = content;
+                
+                // Update selected note
+                state.selectedNote = { ...state.selectedNote, title, content };
+            } else {
+                throw new Error('Invalid note index. Cannot update note state.');
+            }
+        },
+        select: (state, action) => {
+            state.selectedNote = action.payload;
         }
     }
 });

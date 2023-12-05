@@ -10,7 +10,7 @@ export const NoteSelection = () => {
     return (
         <div className='noteSelection flex flex-col items-center gap-1 p-1 bg-black bg-opacity-20'>
             {notes.map((note) => (
-                <NoteCard key={note.id} id={note.id} title={note.title} content={note.content} selected={note.id === selected}/>
+                <NoteCard key={note.id} id={note.id} title={note.title} content={note.content} selected={note.id === selected.id}/>
             ))}
             <button
                 className='border border-white text-white mx-auto my-3 px-3 py-1 hover:text-brightTeal hover:border-brightTeal'>

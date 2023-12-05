@@ -10,7 +10,7 @@ export const NoteCard = ({ id, title, content, selected }) => {
       className={`flex flex-col w-full p-2 bg-darkTeal text-white 
       ${selected ? 'border border-brightTeal bg-opacity-100' : 'bg-opacity-50'} 
       hover:bg-brightTeal hover:text-black`}
-      onClick={() => {dispatch(select(id))}}
+      onClick={() => {dispatch(select({ id: id, title: title, content: content}))}}
       >
         <p className='font-bold'>{title}</p>
         <p>{content}</p>
