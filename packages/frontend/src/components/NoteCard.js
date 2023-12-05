@@ -12,8 +12,8 @@ export const NoteCard = ({ id, title, content, selected }) => {
       hover:bg-brightTeal hover:text-black`}
       onClick={() => {dispatch(select({ id: id, title: title, content: content}))}}
       >
-        <p className='font-bold'>{title}</p>
-        <p>{content}</p>
+        <p className='note-card font-bold'>{title === '' ? 'New Note' : title}</p>
+        <p className='note-card'>{content === '' ? '...' : content}</p>
     </button>
   )
 }

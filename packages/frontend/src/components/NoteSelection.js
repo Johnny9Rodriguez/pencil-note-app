@@ -8,7 +8,7 @@ export const NoteSelection = () => {
     const selected = useSelector((state) => state.noteData.selectedNote);
 
     return (
-        <div className='noteSelection flex flex-col items-center gap-1 p-1 bg-black bg-opacity-20'>
+        <div className='note-selection flex flex-col items-center gap-1 p-1 bg-black bg-opacity-20'>
             {notes.map((note) => (
                 <NoteCard key={note.id} id={note.id} title={note.title} content={note.content} selected={note.id === selected.id}/>
             ))}

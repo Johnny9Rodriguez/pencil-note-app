@@ -11,7 +11,8 @@ h1 {
     font-family: 'Caveat', cursive;
 }
 
-h1, button {
+h1,
+button {
     user-select: none;
 }
 
@@ -24,7 +25,7 @@ textarea:focus {
     outline: none;
 }
 
-.noteSelection {
+.note-selection {
     width: 256px;
     min-width: 256px;
     overflow: scroll;
@@ -32,7 +33,15 @@ textarea:focus {
     border-right: none;
 }
 
-.noteEditor {
+.note-editor {
     border: 1px solid #004C5B;
     border-left: none;
+}
+
+.note-card {
+    width: inherit;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
