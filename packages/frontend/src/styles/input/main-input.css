@@ -34,6 +34,10 @@ textarea:focus {
     outline: none;
 }
 
+input:focus {
+    outline: none;
+}
+
 .note-selection {
     width: 256px;
     min-width: 256px;
@@ -56,4 +60,14 @@ textarea:focus {
 
 .modal-header {
     background: linear-gradient(90deg, #00C6B1, #004C5B);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-text-fill-color: white !important;
+    transition: background-color 5000s ease-in-out 0s;
+    background-color: transparent !important; /* Maintain the transparency */
+    box-shadow: 0 0 0px 1000px transparent inset; /* Override any background */
 }
