@@ -4,12 +4,9 @@ import { nanoid } from 'nanoid';
 export const noteDataSlice = createSlice({
     name: 'noteData',
     initialState: {
-        noteIds: ['1001, 1002'],
-        notes: [
-            { id: '1001', title: 'Great idea!', content: 'Make a million dollars.' },
-            { id: '1002', title: 'Another idea', content: 'Make 2 million dollars.' }
-        ],
-        selectedNote: { id: '1002', title: 'Another idea', content: 'Make 2 million dollars.' }
+        noteIds: [],
+        notes: [],
+        selectedNote: {}
     },
     reducers: {
         add: (state) => {
@@ -24,7 +21,19 @@ export const noteDataSlice = createSlice({
             state.notes.push(newNote);
             state.selectedNote = newNote;
         },
-        remove: (state, action) => { },
+        remove: (state, action) => { 
+            const id = action.payload;
+
+            state.notes = state.notes.filter(note => note.id !== id);
+
+            if (state.selectedNote.id === id) {
+                if (state.notes.length === 0) {
+                    state.selectedNote = {};
+                } else {
+                    state.selectedNote = state.notes[0];
+                }
+            }
+        },
         update: (state, action) => {
             const { id, title, content } = action.payload;
 

@@ -19,6 +19,7 @@ export const NoteEditor = () => {
                 placeholder='Enter a title'
                 value={selected.title}
                 onChange={handleOnChange}
+                maxLength={128}
             />
             <hr></hr>
             <textarea
@@ -27,6 +28,7 @@ export const NoteEditor = () => {
                 placeholder='Enter a note'
                 value={selected.content}
                 onChange={handleOnChange}
+                maxLength={10000}
             />
         </div>
     )

@@ -16,6 +16,11 @@ button {
     user-select: none;
 }
 
+button {
+    box-sizing: border-box;
+    border: solid 1px transparent;
+}
+
 button:focus {
     outline: none;
 }
@@ -43,7 +48,6 @@ textarea:focus {
 }
 
 .note-card {
-    width: inherit;
     text-align: left;
     overflow: hidden;
     white-space: nowrap;

@@ -10,7 +10,7 @@ export const Navigation = () => {
       </div>
       <div className='flex items-center gap-7'>
         <button className='flex items-center gap-1 text-white hover:text-brightTeal'>
-          <Icon icon="mdi:account" className='text-2xl'/>
+          <Icon icon="material-symbols-light:person" className='text-2xl'/>
           <p className='hidden md:block text-md'>Johnny9Rodriguez</p>
         </button>
         <button className='border border-white text-white px-3 py-1 hover:text-brightCrimson hover:border-brightCrimson'>
