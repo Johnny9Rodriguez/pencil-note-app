@@ -9,7 +9,7 @@ export const Footer = () => {
 
     return (
         <div className='flex justify-center items-center w-full h-full'>
-            <div className='flex justify-between items-center p-12 w-full max-w-1024 h-full'>
+            <div className='flex justify-between items-center px-12 w-full max-w-1024 h-full'>
                 <a 
                     href="https://joepytlik.de"
                     target='_blank'

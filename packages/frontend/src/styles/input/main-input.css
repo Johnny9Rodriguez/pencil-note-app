@@ -53,3 +53,7 @@ textarea:focus {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+.modal-header {
+    background: linear-gradient(90deg, #00C6B1, #004C5B);
+}
