@@ -53,7 +53,3 @@ textarea:focus {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-
-.modal {
-    background: linear-gradient(45deg, white 0% 90%, #004C5B 90%);
-}

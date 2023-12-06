@@ -20,6 +20,7 @@ export const NoteEditor = () => {
                 value={selected.title}
                 onChange={handleOnChange}
                 maxLength={128}
+                spellCheck='false'
             />
             <hr></hr>
             <textarea
@@ -29,6 +30,7 @@ export const NoteEditor = () => {
                 value={selected.content}
                 onChange={handleOnChange}
                 maxLength={10000}
+                spellCheck='false'
             />
         </div>
     )

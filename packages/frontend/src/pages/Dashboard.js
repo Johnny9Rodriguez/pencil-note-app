@@ -3,6 +3,7 @@ import { Modals } from '../components/Modals'
 import { Navigation } from '../components/Navigation';
 import { NoteSelection } from '../components/NoteSelection';
 import { NoteEditor } from '../components/NoteEditor';
+import { Footer } from '../components/Footer';
 
 export const Dashboard = () => {
     return (
@@ -17,8 +18,7 @@ export const Dashboard = () => {
             </div>
             <div className='flex flex-grow'></div>
             <footer className='flex mt-6 text-white bg-black h-12'>
-                <p>Joe Pytlik</p>
-                <p>Links + Social</p>
+                <Footer />
             </footer>
         </div>
     )

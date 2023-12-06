@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import { DeleteAccountModal } from './DeleteAccountModal'
+import { ContactModal } from './ContactModal'
 import { useSelector } from 'react-redux'
 import { modalTypes } from '../slices/modalSlice'
 
@@ -14,6 +15,14 @@ export const Modals = () => {
                     className='absolute w-full h-full bg-black bg-opacity-50'
                 >
                     <DeleteAccountModal />
+                </div>
+            )}
+            {modalType === modalTypes.Contact && (
+                <div
+                    id='delete-account-modal'
+                    className='absolute w-full h-full bg-black bg-opacity-50'
+                >
+                    <ContactModal />
                 </div>
             )}
         </Fragment>
