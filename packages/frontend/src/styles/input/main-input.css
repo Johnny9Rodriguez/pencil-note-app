@@ -16,6 +16,10 @@ button {
     user-select: none;
 }
 
+button:focus {
+    outline: none;
+}
+
 textarea {
     resize: none;
     min-width: none;

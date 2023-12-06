@@ -603,6 +603,12 @@ video {
   column-gap: 0.25rem;
 }
 
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .whitespace-nowrap {
   white-space: nowrap;
 }
@@ -747,6 +753,10 @@ h1,
 button {
   -webkit-user-select: none;
           user-select: none;
+}
+
+button:focus {
+  outline: none;
 }
 
 textarea {

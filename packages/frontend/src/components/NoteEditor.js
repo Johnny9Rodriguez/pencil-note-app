@@ -12,7 +12,7 @@ export const NoteEditor = () => {
     }
 
     return (
-        <div className='note-editor flex flex-col flex-grow bg-white bg-opacity-10'>
+        <div className='note-editor truncate flex flex-col flex-grow bg-white bg-opacity-10'>
             <textarea
                 name='title'
                 className='px-2 pt-4 h-16 text-4xl font-semibold whitespace-nowrap'
