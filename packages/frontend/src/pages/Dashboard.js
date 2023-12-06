@@ -1,11 +1,13 @@
 import React from 'react'
+import { Modals } from '../components/Modals'
 import { Navigation } from '../components/Navigation';
 import { NoteSelection } from '../components/NoteSelection';
 import { NoteEditor } from '../components/NoteEditor';
 
 export const Dashboard = () => {
     return (
-        <div className='flex flex-col mx-auto h-screen min-h-480'>
+        <div className='relative flex flex-col mx-auto h-screen min-h-480'>
+            <Modals />
             <nav className='mx-auto px-6 w-full max-w-1024'>
                 <Navigation />
             </nav>

@@ -25,7 +25,7 @@ export const NoteCard = ({ id, title, content, selected }) => {
       onMouseLeave={() => setElementMouseOver(false)}
     >
       <button
-        className={`${elementMouseOver ? '' : 'hidden'} absolute z-10 right-1 top-1/4 text-3xl text-white hover:text-brightCrimson`}
+        className={`${elementMouseOver ? '' : 'hidden'} absolute z-10 right-1 top-1/4 text-3xl ${deleteMouseOver ? 'text-brightCrimson' : 'text-white'}`}
         onMouseEnter={() => setDeleteMouseOver(true)}
         onMouseLeave={() => setDeleteMouseOver(false)}
         onClick={() => dispatch(remove(id))}

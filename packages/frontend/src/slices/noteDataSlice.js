@@ -55,7 +55,7 @@ export const noteDataSlice = createSlice({
             state.selectedNote = action.payload;
         }
     }
-});
+})
 
 export const { add, remove, update, select } = noteDataSlice.actions;
 
