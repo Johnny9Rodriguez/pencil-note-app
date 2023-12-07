@@ -1,21 +1,43 @@
 const express = require('express');
-const cors = require('cors');
+const session = require('express-session');
+const { Pool } = require('pg');
+const pgSession = require('connect-pg-simple')(session);
+const passport = require('./config/passport-config');
 
 const app = express();
 
-app.use(cors({
-    origin: 'http://localhost:3000'
-}));
-
-app.get('/root', (req, res) => {
-    res.status(200).json({ msg: 'Root' });
+// ========================
+//  Session Setup
+// ========================
+const pool = new Pool({
+    connectionString: process.env.DB_STRING
 });
 
-app.get('/login', (req, res) => {
-    res.status(200).json({ msg: 'Okay!' });
+app.use(session({
+    store: new pgSession({
+        pool: pool,
+        tableName: 'session'
+    }),
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 }
+}))
+
+// ========================
+//  Server Setup
+// ========================
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/api', (req, res) => {
+    res.status(200).json({ msg: 'api' });
 });
 
-const PORT = process.env.PORT || 7001;
+// ========================
+//  Start Server
+// ========================
+const PORT = process.env.PORT || 3000;
 
 const server = app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
