@@ -1,7 +1,8 @@
 import React from 'react';
-// import { Dashboard } from './pages/Dashboard';
-// import { LoginPage } from './pages/LoginPage';
+import { Routes, Route } from 'react-router-dom';
+import { LoginPage } from './pages/LoginPage';
 import { SignUpPage } from './pages/SignUpPage';
+import { Dashboard } from './pages/Dashboard';
 import store from './store';
 import { Provider } from 'react-redux';
 
@@ -9,9 +10,12 @@ import { Provider } from 'react-redux';
 export const App = () => {
     return (
         <Provider store={store}>
-            {/* <Dashboard /> */}
-            {/* <LoginPage /> */}
-            <SignUpPage />
+            <Routes>
+                <Route path='/login' element={<LoginPage />}></Route>
+                <Route path='/signup' element={<SignUpPage />}></Route>
+                <Route path='/dashboard' element={<Dashboard />}></Route>
+            </Routes>
+
         </Provider>
     )
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import { Icon } from '@iconify/react';
 import { Modals } from '../components/Modals';
 import { Footer } from '../components/Footer'
+import { Link } from 'react-router-dom';
 
 export const LoginPage = () => {
     return (
@@ -54,7 +55,7 @@ export const LoginPage = () => {
                 <div className='flex flex-col gap-2 px-1 py-2 mt-1 text-sm text-white text-opacity-50'>
                     <div className='flex gap-x-2'>
                         <p>Need an account?</p>
-                        <a href="localhost:3000/login" className='text-brightTeal hover:text-white'>Sign up</a>
+                        <Link to='/signup' className='text-brightTeal hover:text-white'>Sign Up</Link>
                     </div>
                     <div className='flex items-center'>
                         <p className='mr-1'>Or login with</p>
