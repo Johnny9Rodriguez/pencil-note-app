@@ -7,7 +7,7 @@ body {
     background: linear-gradient(180deg, #10222e, #01111e);
 }
 
-h1 {
+h1, h3 {
     font-family: 'Caveat', cursive;
 }
 

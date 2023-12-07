@@ -17,7 +17,7 @@ export const Dashboard = () => {
                 <NoteEditor />
             </div>
             <div className='flex flex-grow'></div>
-            <footer className='flex mt-6 text-white bg-black h-12'>
+            <footer className='flex mt-6 bg-black'>
                 <Footer />
             </footer>
         </div>
