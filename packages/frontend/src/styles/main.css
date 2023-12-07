@@ -631,6 +631,10 @@ video {
   height: 66.666667%;
 }
 
+.h-40 {
+  height: 10rem;
+}
+
 .h-80 {
   height: 20rem;
 }
@@ -675,10 +679,6 @@ video {
 
 .w-full {
   width: 100%;
-}
-
-.w-4\/6 {
-  width: 66.666667%;
 }
 
 .max-w-1024 {
@@ -748,10 +748,6 @@ video {
 
 .gap-x-2 {
   column-gap: 0.5rem;
-}
-
-.self-end {
-  align-self: flex-end;
 }
 
 .self-center {
@@ -941,14 +937,6 @@ video {
   padding-top: 1.5rem;
 }
 
-.text-center {
-  text-align: center;
-}
-
-.text-right {
-  text-align: right;
-}
-
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -1086,6 +1074,19 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active  {
   -webkit-text-fill-color: white !important;
+  -webkit-transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: transparent !important;
+  /* Maintain the transparency */
+  box-shadow: 0 0 0px 1000px transparent inset;
+  /* Override any background */
+}
+
+.contact input:-webkit-autofill,
+.contact input:-webkit-autofill:hover, 
+.contact input:-webkit-autofill:focus, 
+.contact input:-webkit-autofill:active  {
+  -webkit-text-fill-color: black !important;
   -webkit-transition: background-color 5000s ease-in-out 0s;
   transition: background-color 5000s ease-in-out 0s;
   background-color: transparent !important;

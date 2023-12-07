@@ -1,10 +1,12 @@
 import React from 'react'
 import { Icon } from '@iconify/react';
+import { Modals } from '../components/Modals';
 import { Footer } from '../components/Footer'
 
 export const SignUpPage = () => {
     return (
         <div className='relative flex flex-col justify-between mx-auto h-screen min-h-480'>
+            <Modals />
             <section id='login' className='flex flex-col mx-auto mt-12 w-80'>
                 <header className='flex justify-end items-center gap-x-1 pr-3 pb-1'>
                     <Icon icon="material-symbols-light:sticky-note-2-outline-sharp" className='text-brightTeal text-3xl' />
@@ -47,7 +49,7 @@ export const SignUpPage = () => {
                     </div>
                 </div>
             </section>
-            <footer className='flex mt-6 text-white bg-black h-12'>
+            <footer className='flex mt-6 bg-black'>
                 <Footer />
             </footer>
         </div>

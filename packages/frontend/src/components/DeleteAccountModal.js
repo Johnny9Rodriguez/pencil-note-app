@@ -33,7 +33,7 @@ export const DeleteAccountModal = () => {
         <button 
           type='submit' 
           onClick={(e) => e.preventDefault()} 
-          className='text-2xl p-0.5 text-white bg-darkTeal hover:bg-brightTeal'>
+          className='text-2xl p-0.5 px-5 text-white bg-darkTeal hover:bg-brightTeal'>
           <Icon icon="material-symbols-light:send" />
         </button>
       </form>

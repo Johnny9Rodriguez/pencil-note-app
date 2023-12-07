@@ -1,5 +1,5 @@
-import React from 'react'
-import { Modals } from '../components/Modals'
+import React from 'react';
+import { Modals } from '../components/Modals';
 import { Navigation } from '../components/Navigation';
 import { NoteSelection } from '../components/NoteSelection';
 import { NoteEditor } from '../components/NoteEditor';

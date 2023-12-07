@@ -71,3 +71,13 @@ input:-webkit-autofill:active  {
     background-color: transparent !important; /* Maintain the transparency */
     box-shadow: 0 0 0px 1000px transparent inset; /* Override any background */
 }
+
+.contact input:-webkit-autofill,
+.contact input:-webkit-autofill:hover, 
+.contact input:-webkit-autofill:focus, 
+.contact input:-webkit-autofill:active  {
+    -webkit-text-fill-color: black !important;
+    transition: background-color 5000s ease-in-out 0s;
+    background-color: transparent !important; /* Maintain the transparency */
+    box-shadow: 0 0 0px 1000px transparent inset; /* Override any background */
+}

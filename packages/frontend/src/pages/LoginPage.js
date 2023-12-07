@@ -1,10 +1,12 @@
 import React from 'react'
 import { Icon } from '@iconify/react';
+import { Modals } from '../components/Modals';
 import { Footer } from '../components/Footer'
 
 export const LoginPage = () => {
     return (
         <div className='relative flex flex-col justify-between mx-auto h-screen min-h-480'>
+            <Modals />
             <section id='login' className='flex flex-col mx-auto mt-12 w-80'>
                 <header className='flex justify-end items-center gap-x-1 pr-3 pb-1'>
                     <Icon icon="material-symbols-light:sticky-note-2-outline-sharp" className='text-brightTeal text-3xl' />
@@ -21,7 +23,7 @@ export const LoginPage = () => {
                                 type="text"
                                 name='username'
                                 placeholder='Username'
-                                className='w-full bg-white bg-opacity-0 text-white' 
+                                className='w-full bg-white bg-opacity-0 text-white'
                                 spellCheck='false' />
                         </div>
                         <div className='flex py-2 w-full border border-darkTeal'>
@@ -34,13 +36,13 @@ export const LoginPage = () => {
                                 spellCheck='false' />
                         </div>
                         <div className='flex items-center gap-2 px-1'>
-                            <input 
-                                type="checkbox" 
+                            <input
+                                type="checkbox"
                                 name='remember-me'
                                 className='relative peer appearance-none w-3 h-3 bg-white bg-opacity-0 border border-darkTeal cursor-pointer checked:bg-brightTeal checked:text-white checked:border-brightTeal'
                             />
                             <label htmlFor="remember-me" className='text-white text-sm'>Remember me</label>
-                            <Icon icon="mdi:check-bold" className='absolute w-3 h-3 text-white hidden peer-checked:block pointer-events-none'/>
+                            <Icon icon="mdi:check-bold" className='absolute w-3 h-3 text-white hidden peer-checked:block pointer-events-none' />
                         </div>
                         <button
                             type='submit'
@@ -63,7 +65,7 @@ export const LoginPage = () => {
                 </div>
 
             </section>
-            <footer className='flex mt-6 text-white bg-black h-12'>
+            <footer className='flex mt-6 bg-black'>
                 <Footer />
             </footer>
         </div>

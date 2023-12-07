@@ -8,7 +8,7 @@ export const Footer = () => {
     const dispatch = useDispatch();
 
     return (
-        <div className='flex justify-end items-center gap-5 text-sm  w-full h-full px-12 text-white text-opacity-50'>
+        <div className='flex justify-end items-center gap-5 text-sm w-full h-full px-12 py-2 text-white text-opacity-50'>
             <p>&copy;2023 Joe Pytlik</p>
             <a
                 href="https://joepytlik.de"
