@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { setModal } from '../slices/modalSlice';
 import { modalTypes } from '../slices/modalSlice';
 
-export const Navigation = () => {
+export const Navigation = ({ onLogout }) => {
   const dispatch = useDispatch();
 
   return (
@@ -21,7 +21,9 @@ export const Navigation = () => {
           <Icon icon="material-symbols-light:person" className='text-2xl'/>
           <p className='hidden md:block text-md'>Johnny9Rodriguez</p>
         </button>
-        <button className='border border-white text-white px-3 py-1 hover:text-brightCrimson hover:border-brightCrimson'>
+        <button 
+          className='border border-white text-white px-3 py-1 hover:text-brightCrimson hover:border-brightCrimson'
+          onClick={onLogout} >
           Logout
         </button>
       </div>

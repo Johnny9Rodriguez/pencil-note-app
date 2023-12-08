@@ -4,7 +4,24 @@ import { Modals } from '../components/Modals';
 import { Footer } from '../components/Footer'
 import { Link } from 'react-router-dom';
 
-export const LoginPage = () => {
+export const LoginPage = ({ onLogin }) => {
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        onLogin();
+        // try {
+        //     const res = await fetch('http://localhost:3001/api');
+        //     if (!res.ok) {
+        //         console.error('Network response error');
+        //     }
+
+        //     const jsonData = await res.json();
+        //     console.log(jsonData);
+        // } catch (err) {
+        //     console.error('Error fetching login authentiation', err);
+        // }
+    }
+
     return (
         <div className='relative flex flex-col justify-between mx-auto h-screen min-h-480'>
             <Modals />
@@ -17,7 +34,7 @@ export const LoginPage = () => {
                     <h2 className='text-white text-3xl'>
                         Login
                     </h2>
-                    <form action="" className='flex flex-col gap-4'>
+                    <form action='http://localhost:3001/api' method='post' className='flex flex-col gap-4'>
                         <div className='flex py-2 w-full border border-darkTeal'>
                             <Icon icon="material-symbols-light:person" className='self-center w-8 text-2xl text-brightTeal' />
                             <input
@@ -40,6 +57,7 @@ export const LoginPage = () => {
                             <input
                                 type="checkbox"
                                 name='remember-me'
+                                id='remember-me'
                                 className='relative peer appearance-none w-3 h-3 bg-white bg-opacity-0 border border-darkTeal cursor-pointer checked:bg-brightTeal checked:text-white checked:border-brightTeal'
                             />
                             <label htmlFor="remember-me" className='text-white text-sm'>Remember me</label>
@@ -47,6 +65,7 @@ export const LoginPage = () => {
                         </div>
                         <button
                             type='submit'
+                            onClick={handleLogin}
                             className='self-center w-fit border border-white text-white px-7 py-1 hover:border-brightTeal hover:text-brightTeal'>
                             Login
                         </button>
