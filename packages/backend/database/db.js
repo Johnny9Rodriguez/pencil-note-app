@@ -40,4 +40,13 @@ function getUserById(id, callback) {
     });
 }
 
-module.exports = { getUserByUsername, getUserById };
+function storeUser(username, hash, salt) {
+    const query = 'INSERT INTO users (username, hash, salt) VALUES ($1, $2, $3)';
+    return pool.query(query, [username, hash, salt]);
+}
+
+module.exports = { 
+    getUserByUsername,
+    getUserById, 
+    storeUser 
+};

@@ -1,25 +1,54 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Icon } from '@iconify/react';
 import { Modals } from '../components/Modals';
 import { Footer } from '../components/Footer'
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setAuth, setUser } from '../slices/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginPage = ({ onLogin }) => {
-    const handleLogin = async (e) => {
+    const demoUsername = 'demo1234';
+    const demoPassword = 'demo1234';
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogin = async (e, demo) => {
         e.preventDefault();
+        
+        try {
+            const data = {
+                username: demo ? demoUsername : username,
+                password: demo ? demoPassword : password
+            }
 
-        onLogin();
-        // try {
-        //     const res = await fetch('http://localhost:3001/api');
-        //     if (!res.ok) {
-        //         console.error('Network response error');
-        //     }
+            const res = await fetch('http://localhost:3001/api/login', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+            
+            if (!res.ok) {
+                console.error('Login failed: ', await res.text());
+                return;
+            }
 
-        //     const jsonData = await res.json();
-        //     console.log(jsonData);
-        // } catch (err) {
-        //     console.error('Error fetching login authentiation', err);
-        // }
+            const jsonData = await res.json();
+
+            if (jsonData.success) {
+                console.log(jsonData.message);
+                dispatch(setAuth(true));
+                dispatch(setUser({ id: jsonData.user.id, username: jsonData.user.username }))
+                navigate('/dashboard');
+            }
+        } catch (err) {
+            console.error('Error fetching login authentication', err);
+        }
     }
 
     return (
@@ -34,12 +63,14 @@ export const LoginPage = ({ onLogin }) => {
                     <h2 className='text-white text-3xl'>
                         Login
                     </h2>
-                    <form action='http://localhost:3001/api' method='post' className='flex flex-col gap-4'>
+                    <form onSubmit={(e) => handleLogin(e, false)} className='flex flex-col gap-4'>
                         <div className='flex py-2 w-full border border-darkTeal'>
                             <Icon icon="material-symbols-light:person" className='self-center w-8 text-2xl text-brightTeal' />
                             <input
                                 type="text"
                                 name='username'
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
                                 placeholder='Username'
                                 className='w-full bg-white bg-opacity-0 text-white'
                                 spellCheck='false' />
@@ -49,6 +80,8 @@ export const LoginPage = ({ onLogin }) => {
                             <input
                                 type="password"
                                 name='password'
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 placeholder='Password'
                                 className='w-full bg-white bg-opacity-0 text-white'
                                 spellCheck='false' />
@@ -65,7 +98,6 @@ export const LoginPage = ({ onLogin }) => {
                         </div>
                         <button
                             type='submit'
-                            onClick={handleLogin}
                             className='self-center w-fit border border-white text-white px-7 py-1 hover:border-brightTeal hover:text-brightTeal'>
                             Login
                         </button>
@@ -78,7 +110,11 @@ export const LoginPage = ({ onLogin }) => {
                     </div>
                     <div className='flex items-center'>
                         <p className='mr-1'>Or login with</p>
-                        <button className='text-brightTeal hover:text-white'>demo account</button>
+                        <button 
+                            className='text-brightTeal hover:text-white'
+                            onClick={(e) => handleLogin(e, true)}>
+                                demo account
+                        </button>
                         <p>.</p>
                     </div>
 
