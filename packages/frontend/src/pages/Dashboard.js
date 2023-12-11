@@ -5,12 +5,12 @@ import { NoteSelection } from '../components/NoteSelection';
 import { NoteEditor } from '../components/NoteEditor';
 import { Footer } from '../components/Footer';
 
-export const Dashboard = ({ onLogout }) => {
+export const Dashboard = () => {
     return (
         <div className='relative flex flex-col mx-auto h-screen min-h-480'>
             <Modals />
             <nav className='mx-auto px-6 w-full max-w-1024'>
-                <Navigation onLogout={onLogout}/>
+                <Navigation />
             </nav>
             <div className='flex flex-grow mx-auto px-3 w-full max-w-1024 h-4/6'>
                 <NoteSelection />
