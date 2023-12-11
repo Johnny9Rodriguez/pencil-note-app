@@ -23,7 +23,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 }
+    cookie: { maxAge: 1000 * 60 * 60 * 24 } // Default cookie age = 1 day
 }));
 
 // ========================
@@ -34,11 +34,13 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(cors({
     origin: ['http://localhost:3000'],
+    credentials: true
   }));
-app.use(router);
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(router);
 
 // ========================
 //  Start Server
