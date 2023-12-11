@@ -9,11 +9,11 @@ import { useNavigate } from 'react-router-dom';
 
 export const LoginPage = () => {
     const demoUsername = 'demo1234';
-    const demoPassword = 'demo1234';
+    const demoPassword = 'VNewymiP7IjFC75';
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
-    const [loginError, setLoginError] = useState({ errorMsg: null, errorFlag: null });
+    const [loginError, setLoginError] = useState({ errorMsg: '', errorFlag: null });
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -21,11 +21,11 @@ export const LoginPage = () => {
     const handleLogin = async (e, demo) => {
         e.preventDefault();
 
-        setUsername('');
+        setPassword('');
 
         try {
             const data = {
-                username: demo ? demoUsername : username,
+                username: demo ? demoUsername : username.toLowerCase(),
                 password: demo ? demoPassword : password,
                 rememberMe: demo ? false : rememberMe
             }
@@ -63,7 +63,7 @@ export const LoginPage = () => {
 
     const LoginError = () => {
         return (
-            <div className='flex justify-center items-center gap-3 p-2 text-brightCrimson border border-brightCrimson text-sm bg-brightCrimson bg-opacity-20'>
+            <div className='flex justify-center items-center gap-3 p-2 text-brightCrimson border border-brightCrimson text-sm bg-brightCrimson bg-opacity-10'>
                 <Icon icon="ic:baseline-warning" className='text-lg animate-error-shake' />
                 <p className='animate-error-shake'>{loginError.errorMsg}</p>
             </div>
@@ -71,7 +71,7 @@ export const LoginPage = () => {
     }
 
     const clearError = () => {
-        setLoginError({ errorMsg: null, errorFlag: null });
+        setLoginError({ errorMsg: '', errorFlag: null });
     }
 
     return (

@@ -6,7 +6,7 @@ import { modalTypes } from '../slices/modalSlice';
 import { useNavigate } from 'react-router-dom';
 import { setAuth, setUser } from '../slices/authSlice';
 
-export const Navigation = ({ onLogout }) => {
+export const Navigation = () => {
   const user = useSelector(state => state.auth.user);
 
   const dispatch = useDispatch();
