@@ -22,7 +22,6 @@ export const LoginPage = () => {
         e.preventDefault();
 
         setUsername('');
-        setPassword('');
 
         try {
             const data = {

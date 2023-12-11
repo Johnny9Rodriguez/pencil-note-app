@@ -20,10 +20,10 @@ export const App = () => {
             credentials: 'include'
         })
         .then(res => res.json())
-        .then(data => {
-            if (data.success) {
+        .then(jsonData => {
+            if (jsonData.success) {
                 dispatch(setAuth(true));
-                dispatch(setUser({ id: data.user.id, username: data.user.username }))
+                dispatch(setUser({ id: jsonData.user.id, username: jsonData.user.username }))
                 navigate('/dashboard');
             }
         })

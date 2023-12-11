@@ -9,9 +9,25 @@ router.get('/api/auth-check', (req, res) => {
     if (req.isAuthenticated()) {
         return res.status(200).json({ success: true, message: 'Authentication successful.', user: req.user });
     } else {
-        return res.status(401).send('Cookie is not authenticated.')
+        return res.status(401).json({ message: 'Cookie is not authenticated.' });
     }
-})
+});
+
+router.post('/api/logout', (req, res) => {
+    req.logout(function (err) {
+        if (err) {
+            return res.status(500).send('Error logging out');
+        }
+        req.session.destroy((err) => {
+            if (err) {
+                return res.status(500).send('Error destroying session');
+            }
+
+            res.clearCookie('connect.sid', { path: '/' });
+            res.status(200).send('Logged out');
+        });
+    });
+});
 
 router.post('/api/login', (req, res, next) => {
     passport.authenticate('local', (err, user) => {
