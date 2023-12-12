@@ -34,7 +34,6 @@ const Empty = () => {
             <textarea
                 className='px-2 pt-4 h-16 text-4xl font-semibold whitespace-nowrap'
                 placeholder='Create your first note'
-                value={''}
                 disabled
             />
             <hr></hr>

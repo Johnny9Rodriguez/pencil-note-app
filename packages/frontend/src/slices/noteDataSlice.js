@@ -1,23 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { nanoid } from 'nanoid';
 
 export const noteDataSlice = createSlice({
     name: 'noteData',
     initialState: {
-        noteIds: [],
         notes: [],
         selectedNote: {}
     },
     reducers: {
-        add: (state) => {
-            let id = nanoid(4);
-            while (state.noteIds.includes(id)) {
-                id = nanoid(4);
-            }
+        add: (state, action) => {
+            const noteId = action.payload.noteId;
 
-            const newNote = { id: id, title: '', content: '' };
+            const newNote = { id: noteId, title: '', content: '' };
 
-            state.noteIds.push(id);
             state.notes.push(newNote);
             state.selectedNote = newNote;
         },

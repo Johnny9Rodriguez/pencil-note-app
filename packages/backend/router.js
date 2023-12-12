@@ -77,4 +77,18 @@ router.post('/api/register', (req, res) => {
     });
 });
 
+router.post('/api/note', async (req, res) => {
+    const { userId } = req.body;
+
+    try {
+        const result = await db.createNote(userId);
+        const noteId = result.rows[0].id;
+        console.log('Created note with id: ', noteId);
+        res.status(201).send({ message: 'Note created successfully', noteId: noteId });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: 'Internal server error' });
+    }
+});
+
 module.exports = router;

@@ -45,8 +45,36 @@ function storeUser(username, hash, salt) {
     return pool.query(query, [username, hash, salt]);
 }
 
+function createNote(user_id) {
+    const query = 'INSERT INTO notes (user_id, title, content) VALUES ($1, \'\', \'\') RETURNING id';
+    return pool.query(query, [user_id]);
+}
+
+function deleteNote(note_id) {
+    const query = 'DELETE FROM notes WHERE id = $1'
+    return pool.query(query, [note_id]);
+}
+
+function updateNote(note_id, title, content) {
+    const query = `
+        UPDATE notes
+        SET title = $1, content = $2
+        WHERE id = $3
+    `;
+    return pool.query(query, [title, content, note_id]);
+}
+
+function loadNotes(user_id) {
+    const query = 'SELECT * FROM notes WHERE user_id = $1 ORDER BY created_at DESC';
+    return pool.query(query, [user_id]);
+}
+
 module.exports = { 
     getUserByUsername,
     getUserById, 
-    storeUser 
+    storeUser,
+    createNote,
+    deleteNote,
+    updateNote,
+    loadNotes
 };
