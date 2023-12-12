@@ -5,6 +5,7 @@ import { setModal } from '../slices/modalSlice';
 import { modalTypes } from '../slices/modalSlice';
 import { useNavigate } from 'react-router-dom';
 import { setAuth, setUser } from '../slices/authSlice';
+import { init } from '../slices/noteDataSlice';
 
 export const Navigation = () => {
   const user = useSelector(state => state.auth.user);
@@ -28,6 +29,7 @@ export const Navigation = () => {
 
       dispatch(setAuth(false));
       dispatch(setUser({ id: null, username: null }));
+      dispatch(init());
       navigate('/login');
 
     } catch (err) {

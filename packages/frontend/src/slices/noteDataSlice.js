@@ -47,10 +47,14 @@ export const noteDataSlice = createSlice({
         },
         select: (state, action) => {
             state.selectedNote = action.payload;
+        },
+        init: (state) => {
+            state.notes = [];
+            state.selectedNote = {};
         }
     }
 })
 
-export const { add, remove, update, select } = noteDataSlice.actions;
+export const { add, remove, update, select, init } = noteDataSlice.actions;
 
 export default noteDataSlice.reducer;
