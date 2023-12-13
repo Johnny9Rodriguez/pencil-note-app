@@ -91,4 +91,19 @@ router.post('/api/note', async (req, res) => {
     }
 });
 
+router.get('/api/notes/:userId', async (req, res) => {
+    if (req.isAuthenticated()) {
+        const userId = req.params.userId;
+
+        try {
+            const result = await db.loadNotes(userId);
+            res.status(200).json(result.rows);
+        } catch (error) {
+            console.error('Error loading notes: ', error);
+        }
+    } else {
+        res.status(401).send({ message: 'Unauthorized user' });
+    }
+});
+
 module.exports = router;

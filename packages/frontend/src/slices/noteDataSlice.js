@@ -51,10 +51,17 @@ export const noteDataSlice = createSlice({
         init: (state) => {
             state.notes = [];
             state.selectedNote = {};
+        },
+        setNotes: (state, action) => {
+            const loadedNotes = action.payload;
+            if (loadedNotes.length > 0) {
+                state.notes = loadedNotes;
+                state.selectedNote = state.notes[0];
+            }
         }
     }
 })
 
-export const { add, remove, update, select, init } = noteDataSlice.actions;
+export const { add, remove, update, select, init, setNotes } = noteDataSlice.actions;
 
 export default noteDataSlice.reducer;
