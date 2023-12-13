@@ -18,6 +18,30 @@ export const NoteCard = ({ id, title, content, selected }) => {
     noteCardStyle = 'text-white bg-darkTeal bg-opacity-50'
   }
 
+  const handleDelete = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      noteId: id
+    }
+
+    const response = await fetch('http://localhost:3001/api/note', {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data),
+      credentials: 'include'
+    });
+
+    if (response.status === 202) {
+      dispatch(remove(id));
+      console.log('Note deleted successfully.');
+    } else {
+      console.log('Internal server error.');
+    }
+  }
+
   return (
     <div
       className={'relative w-full'}
@@ -28,7 +52,7 @@ export const NoteCard = ({ id, title, content, selected }) => {
         className={`${elementMouseOver ? '' : 'hidden'} absolute z-10 right-1 top-1/4 text-3xl ${deleteMouseOver ? 'text-brightCrimson' : 'text-white'}`}
         onMouseEnter={() => setDeleteMouseOver(true)}
         onMouseLeave={() => setDeleteMouseOver(false)}
-        onClick={() => dispatch(remove(id))}
+        onClick={handleDelete}
       >
         {deleteMouseOver ? (<Icon icon="material-symbols:delete-sharp" />) : (<Icon icon="material-symbols-light:delete-outline-sharp" />)}
       </button>

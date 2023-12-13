@@ -96,8 +96,6 @@ router.put('/api/note', async (req, res) => {
     if (req.isAuthenticated()) {
         const { id, title, content } = req.body;
 
-        console.log(id, title, content);
-
         try {
             await db.updateNote(id, title, content);
             res.status(204).send({ message: 'Note updated successfully' });
@@ -108,6 +106,20 @@ router.put('/api/note', async (req, res) => {
         }
     }
 });
+
+router.delete('/api/note', async (req, res) => {
+    if (req.isAuthenticated()) {
+        const { noteId } = req.body;
+
+        try {
+            await db.deleteNote(noteId);
+            res.status(202).send({ message: 'Note deleted successfully' });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({ message: 'Internal server error' });
+        }
+    }
+})
 
 router.get('/api/notes/:userId', async (req, res) => {
     if (req.isAuthenticated()) {

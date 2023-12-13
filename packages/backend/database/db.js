@@ -65,7 +65,7 @@ function updateNote(noteId, title, content) {
 }
 
 function loadNotes(userId) {
-    const query = 'SELECT * FROM notes WHERE user_id = $1 ORDER BY created_at DESC';
+    const query = 'SELECT * FROM notes WHERE user_id = $1 ORDER BY created_at ASC';
     return pool.query(query, [userId]);
 }
 
