@@ -78,16 +78,34 @@ router.post('/api/register', (req, res) => {
 });
 
 router.post('/api/note', async (req, res) => {
-    const { userId } = req.body;
+    if (req.isAuthenticated()) {
+        const { userId } = req.body;
 
-    try {
-        const result = await db.createNote(userId);
-        const noteId = result.rows[0].id;
-        console.log('Created note with id: ', noteId);
-        res.status(201).send({ message: 'Note created successfully', noteId: noteId });
-    } catch (err) {
-        console.error(err);
-        res.status(500).send({ message: 'Internal server error' });
+        try {
+            const result = await db.createNote(userId);
+            const noteId = result.rows[0].id;
+            res.status(201).send({ message: 'Note created successfully', noteId: noteId });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send({ message: 'Internal server error' });
+        }
+    }
+});
+
+router.put('/api/note', async (req, res) => {
+    if (req.isAuthenticated()) {
+        const { id, title, content } = req.body;
+
+        console.log(id, title, content);
+
+        try {
+            await db.updateNote(id, title, content);
+            res.status(204).send({ message: 'Note updated successfully' });
+
+        } catch (error) {
+            console.error(err);
+            res.status(500).send({ message: 'Internal server error' });
+        }
     }
 });
 

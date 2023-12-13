@@ -19,7 +19,8 @@ export const NoteSelection = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
+                credentials: 'include'
             })
 
             if (res.status === 201) {

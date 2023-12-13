@@ -47,9 +47,31 @@ export const NoteEditor = () => {
     const selected = useSelector((state) => state.noteData.selectedNote);
     const dispatch = useDispatch();
 
-    const handleOnChange = (event) => {
+    const handleOnChange = async (event) => {
         const { name, value } = event.target;
         dispatch(update({ ...selected, [name]: value }));
+
+        const data = {
+            ...selected,
+            [name]: value
+        };
+
+        console.log(data);
+
+        const response = await fetch('http://localhost:3001/api/note', {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data),
+            credentials: 'include'
+        });
+
+        if (response.status === 204) {
+            console.log('Note updated successfully.');
+        } else {
+            console.log('Internal server error.');
+        }
     }
 
     return (
