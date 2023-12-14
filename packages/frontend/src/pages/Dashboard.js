@@ -25,7 +25,6 @@ export const Dashboard = () => {
 
                     if (response.status === 200) {
                         const jsonData = await response.json();
-                        console.log(jsonData);
                         dispatch(setNotes(jsonData));
                     } else {
                         console.error('Failed to fetch notes, status:', response.status);

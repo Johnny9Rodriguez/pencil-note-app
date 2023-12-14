@@ -6,6 +6,7 @@ import { modalTypes } from '../slices/modalSlice';
 import { useNavigate } from 'react-router-dom';
 import { setAuth, setUser } from '../slices/authSlice';
 import { init } from '../slices/noteDataSlice';
+import { axeDebounce } from '../utils/debounceNoteUpdate';
 
 export const Navigation = () => {
   const user = useSelector(state => state.auth.user);
@@ -27,6 +28,7 @@ export const Navigation = () => {
         return;
       }
 
+      axeDebounce();
       dispatch(setAuth(false));
       dispatch(setUser({ id: null, username: null }));
       dispatch(init());

@@ -96,6 +96,8 @@ router.put('/api/note', async (req, res) => {
     if (req.isAuthenticated()) {
         const { id, title, content } = req.body;
 
+        console.log(id, title, content);
+
         try {
             await db.updateNote(id, title, content);
             res.status(204).send({ message: 'Note updated successfully' });

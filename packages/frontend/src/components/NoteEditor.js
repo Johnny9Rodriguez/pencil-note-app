@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { update } from '../slices/noteDataSlice';
+import { debounce, axeDebounce } from '../utils/debounceNoteUpdate';
 
 const Editor = ({ selected, handleOnChange }) => {
     return (
@@ -54,25 +55,14 @@ export const NoteEditor = () => {
         const data = {
             ...selected,
             [name]: value
-        };
-
-        console.log(data);
-
-        const response = await fetch('http://localhost:3001/api/note', {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data),
-            credentials: 'include'
-        });
-
-        if (response.status === 204) {
-            console.log('Note updated successfully.');
-        } else {
-            console.log('Internal server error.');
         }
+
+        debounce(data);
     }
+
+    useEffect(() => {
+        axeDebounce();
+    }, [selected.id]);
 
     return (
         <div className='note-editor truncate flex flex-col flex-grow bg-white'>
