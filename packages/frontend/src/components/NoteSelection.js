@@ -60,7 +60,7 @@ export const NoteSelection = () => {
                     setHoverDelete={setHoverDelete}
                 />))}
             <button
-                className='border border-white text-white mx-auto my-3 px-3 py-1 hover:text-brightTeal hover:border-brightTeal'
+                className={`${notes.length > 20 ? 'hidden' : ''} border border-white text-white mx-auto my-3 px-3 py-1 hover:text-brightTeal hover:border-brightTeal`}
                 onClick={handleNoteCreation}
             >
                 <Icon icon="mdi:add-bold" />

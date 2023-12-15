@@ -2,16 +2,19 @@ const express = require('express');
 const passport = require('./config/passport-config');
 const db = require('./database/db');
 const pwUtils = require('./utils/password-utils');
+const userRouter = require('./routes/userRoutes');
 
 const router = express.Router();
 
-router.get('/api/auth-check', (req, res) => {
-    if (req.isAuthenticated()) {
-        return res.status(200).json({ success: true, message: 'Authentication successful.', user: req.user });
-    } else {
-        return res.status(401).json({ message: 'Cookie is not authenticated.' });
-    }
-});
+router.use('/api/users', userRouter);
+
+// router.get('/api/auth-check', (req, res) => {
+//     if (req.isAuthenticated()) {
+//         return res.status(200).json({ success: true, message: 'Authentication successful.', user: req.user });
+//     } else {
+//         return res.status(401).json({ message: 'Cookie is not authenticated.' });
+//     }
+// });
 
 router.post('/api/logout', (req, res) => {
     req.logout(function (err) {

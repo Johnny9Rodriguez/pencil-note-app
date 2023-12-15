@@ -8,8 +8,9 @@ import { setAuth, setUser } from '../slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 
 export const LoginPage = () => {
-    const demoUsername = 'demo1234';
-    const demoPassword = 'VNewymiP7IjFC75';
+    const DEMO_USERNAME = 'demo1234';
+    const DEMO_PASSWORD = 'VNewymiP7IjFC75';
+    
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
@@ -21,12 +22,12 @@ export const LoginPage = () => {
     const handleLogin = async (e, demo) => {
         e.preventDefault();
 
-        setPassword('');
+        setPassword('');    // Reset password input field on login attempt
 
         try {
             const data = {
-                username: demo ? demoUsername : username.toLowerCase(),
-                password: demo ? demoPassword : password,
+                username: demo ? DEMO_USERNAME : username.toLowerCase(),
+                password: demo ? DEMO_PASSWORD : password,
                 rememberMe: demo ? false : rememberMe
             }
 
