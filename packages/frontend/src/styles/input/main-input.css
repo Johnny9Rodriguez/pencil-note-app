@@ -7,12 +7,14 @@ body {
     background: linear-gradient(180deg, #10222e, #01111e);
 }
 
-h1, h3 {
+h1,
+h3 {
     font-family: 'Caveat', cursive;
 }
 
 h1,
-button {
+button,
+.remember {
     user-select: none;
 }
 
@@ -42,12 +44,12 @@ input:focus {
     width: 256px;
     min-width: 256px;
     overflow: scroll;
-    border: 1px solid #004C5B;
+    border: 1px solid #004c5b;
     border-right: none;
 }
 
 .note-editor {
-    border: 1px solid #004C5B;
+    border: 1px solid #004c5b;
     border-left: none;
 }
 
@@ -59,13 +61,17 @@ input:focus {
 }
 
 .modal-header {
-    background: linear-gradient(90deg, #00C6B1, #004C5B);
+    background: linear-gradient(90deg, #00c6b1, #004c5b);
+}
+
+.remember:hover {
+    cursor: pointer;
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active  {
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
     -webkit-text-fill-color: white !important;
     transition: background-color 5000s ease-in-out 0s;
     background-color: transparent !important; /* Maintain the transparency */
@@ -73,9 +79,9 @@ input:-webkit-autofill:active  {
 }
 
 .contact input:-webkit-autofill,
-.contact input:-webkit-autofill:hover, 
-.contact input:-webkit-autofill:focus, 
-.contact input:-webkit-autofill:active  {
+.contact input:-webkit-autofill:hover,
+.contact input:-webkit-autofill:focus,
+.contact input:-webkit-autofill:active {
     -webkit-text-fill-color: black !important;
     transition: background-color 5000s ease-in-out 0s;
     background-color: transparent !important; /* Maintain the transparency */
