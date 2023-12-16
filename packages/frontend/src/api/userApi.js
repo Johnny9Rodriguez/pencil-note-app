@@ -9,8 +9,11 @@ export const checkAuthentication = async () => {
 
         const data = await res.json();
 
-        if (res.status === 401) console.error(res.status + ': ' + data.message);
-        else console.log(res.status + ': ' + data.message);
+        if (!res.ok) {
+            console.error(res.status + ': ' + data.message);
+        } else {
+            console.log(res.status + ': ' + data.message);
+        }
 
         return data;
     } catch (error) {
@@ -38,10 +41,44 @@ export const login = async (loginData, setLoginError) => {
                     ? 'Internal Server Error. Please try again.'
                     : 'Incorrect username or password.';
             setLoginError({ errorMessage: errMsg, errorFlag: Date.now() });
+        } else {
+            console.log(res.status + ': ' + data.message);
         }
 
         return data;
     } catch (error) {
         console.error('Login error:', error);
+    }
+};
+
+export const signup = async (signupData, setSignupError) => {
+    try {
+        const res = await fetch(BASE_API_URL + '/api/users/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(signupData),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            console.error(res.status + ': ' + data.message);
+            const errMsg =
+                res.status === 500
+                    ? 'Internal Server Error. Please try again.'
+                    : 'Username already taken.';
+            setSignupError({
+                errorMessage: errMsg,
+                errorFlag: Date.now(),
+            });
+        } else {
+            console.log(res.status + ': ' + data.message);
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Signup error:', error);
     }
 };

@@ -19,7 +19,7 @@ export const App = () => {
         const authenticate = async () => {
             const data = await checkAuthentication();
 
-            if (data.authenticated) {
+            if (data && data.authenticated) {
                 dispatch(setAuth(true));
                 dispatch(
                     setUser({ id: data.user.id, username: data.user.username })

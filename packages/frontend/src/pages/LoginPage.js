@@ -36,7 +36,7 @@ export const LoginPage = () => {
 
         const data = await login(loginData, setLoginError);
 
-        if (data.authenticated) {
+        if (data && data.authenticated) {
             dispatch(setAuth(true));
             dispatch(
                 setUser({ id: data.user.id, username: data.user.username })
