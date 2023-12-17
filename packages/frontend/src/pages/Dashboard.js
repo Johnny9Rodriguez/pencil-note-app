@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Modals } from '../components/Modals';
 import { Navigation } from '../components/Navigation';
 import { NoteSelection } from '../components/NoteSelection';
@@ -12,17 +12,22 @@ export const Dashboard = () => {
     const user = useSelector((state) => state.auth.user);
     const dispatch = useDispatch();
 
+    let hasFetchedNotes = useRef(false);
+
     // Load stored notes for authenticated user.
     useEffect(() => {
-        const loadNotes = async () => {
-            const notes = await fetchNotes(user.id);
+        if (!hasFetchedNotes.current) {
+            const loadNotes = async () => {
+                const notes = await fetchNotes(user.id);
 
-            if (notes) {
-                dispatch(setNotes(notes));
-            }
+                if (notes) {
+                    dispatch(setNotes(notes));
+                }
+            };
+
+            loadNotes();
+            hasFetchedNotes.current = true;
         }
-
-        loadNotes();
     }, [dispatch, user.id]);
 
     return (
