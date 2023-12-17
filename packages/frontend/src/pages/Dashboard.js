@@ -1,43 +1,29 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Modals } from '../components/Modals';
 import { Navigation } from '../components/Navigation';
 import { NoteSelection } from '../components/NoteSelection';
 import { NoteEditor } from '../components/NoteEditor';
 import { Footer } from '../components/Footer';
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchNotes } from '../api/noteApi';
 import { setNotes } from '../slices/noteDataSlice';
 
 export const Dashboard = () => {
     const user = useSelector((state) => state.auth.user);
     const dispatch = useDispatch();
 
-    const hasFetchedNotes = useRef();
-
-    // Load stored notes for user.
+    // Load stored notes for authenticated user.
     useEffect(() => {
-        if (!hasFetchedNotes.current) {
-            const fetchNotes = async () => {
-                try {
-                    const response = await fetch(`http://localhost:3001/api/notes/${user.id}`, {
-                        method: 'GET',
-                        credentials: 'include'
-                    });
+        const loadNotes = async () => {
+            const notes = await fetchNotes(user.id);
 
-                    if (response.status === 200) {
-                        const jsonData = await response.json();
-                        dispatch(setNotes(jsonData));
-                    } else {
-                        console.error('Failed to fetch notes, status:', response.status);
-                    }
-                } catch (error) {
-                    console.error('Error fetching notes:', error);
-                }
+            if (notes) {
+                dispatch(setNotes(notes));
             }
-            fetchNotes();
-            hasFetchedNotes.current = true;
         }
 
-    }, [dispatch, user.id])
+        loadNotes();
+    }, [dispatch, user.id]);
 
     return (
         <div className='relative flex flex-col mx-auto h-screen min-h-480'>
@@ -54,5 +40,5 @@ export const Dashboard = () => {
                 <Footer />
             </footer>
         </div>
-    )
-}
+    );
+};

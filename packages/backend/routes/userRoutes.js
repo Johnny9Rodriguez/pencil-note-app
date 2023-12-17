@@ -1,9 +1,13 @@
 const express = require('express');
-const router = express.Router();
 const passport = require('passport');
 const db = require('../database/db');
 const pwUtils = require('../utils/password-utils');
 
+const router = express.Router();
+
+// =======================
+// CHECK AUTHENTICATION
+// =======================
 router.get('/auth-check', (req, res) => {
     // 'isAuthenticated()' compares cookie in request with stored session cookies, i.e. if it is stored or not.
     if (req.isAuthenticated()) {
@@ -25,6 +29,9 @@ router.get('/auth-check', (req, res) => {
     }
 });
 
+// =======================
+// LOGIN
+// =======================
 router.post('/login', (req, res, next) => {
     // Invoke Passport.js authentication with local strategy, i.e. username and password.
     passport.authenticate('local', (error, user) => {
@@ -72,6 +79,14 @@ router.post('/login', (req, res, next) => {
     })(req, res, next);
 });
 
+// =======================
+// LOGOUT
+// =======================
+// @todo implement logout
+
+// =======================
+// SIGNUP
+// =======================
 router.post('/signup', (req, res) => {
     const { username, password } = req.body;
 
