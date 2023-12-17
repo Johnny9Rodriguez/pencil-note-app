@@ -8,22 +8,6 @@ const router = express.Router();
 router.use('/api/users', userRouter);
 router.use('/api/notes', noteRouter);
 
-router.post('/api/logout', (req, res) => {
-    req.logout(function (err) {
-        if (err) {
-            return res.status(500).send('Error logging out');
-        }
-        req.session.destroy((err) => {
-            if (err) {
-                return res.status(500).send('Error destroying session');
-            }
-
-            res.clearCookie('connect.sid', { path: '/' });
-            res.status(200).send('Logged out');
-        });
-    });
-});
-
 router.post('/api/note', async (req, res) => {
     if (req.isAuthenticated()) {
         const { userId } = req.body;

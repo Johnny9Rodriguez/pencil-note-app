@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAuth, setUser } from './slices/authSlice';
@@ -9,26 +9,34 @@ import { SignUpPage } from './pages/SignUpPage';
 import { Dashboard } from './pages/Dashboard';
 
 export const App = () => {
-    const token = useSelector((state) => state.auth.authenticated);
+    const authenticated = useSelector((state) => state.auth.authenticated);
+
+    const initialAuthentication = useRef(false);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     // Cookie authentication
     useEffect(() => {
-        const authenticate = async () => {
-            const data = await checkAuthentication();
+        if (!initialAuthentication.current) {
+            const authenticate = async () => {
+                const data = await checkAuthentication();
 
-            if (data && data.authenticated) {
-                dispatch(setAuth(true));
-                dispatch(
-                    setUser({ id: data.user.id, username: data.user.username })
-                );
-                navigate('/dashboard');
-            }
-        };
+                if (data && data.authenticated) {
+                    dispatch(setAuth(true));
+                    dispatch(
+                        setUser({
+                            id: data.user.id,
+                            username: data.user.username,
+                        })
+                    );
+                    navigate('/dashboard');
+                }
+            };
 
-        authenticate();
+            authenticate();
+            initialAuthentication.current = true;
+        }
     }, [dispatch, navigate]);
 
     return (
@@ -39,7 +47,7 @@ export const App = () => {
             <Route
                 path='/dashboard'
                 element={
-                    token ? <Dashboard /> : <Navigate to='/login' replace />
+                    authenticated ? <Dashboard /> : <Navigate to='/login' replace />
                 }
             />
         </Routes>

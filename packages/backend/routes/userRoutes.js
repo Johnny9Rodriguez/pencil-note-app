@@ -82,7 +82,35 @@ router.post('/login', (req, res, next) => {
 // =======================
 // LOGOUT
 // =======================
-// @todo implement logout
+router.post('/logout', (req, res) => {
+    if (req.isAuthenticated()) {
+        req.logout(function (error) {
+            if (error) {
+                return res.status(500).json({
+                    userLogout: false,
+                    message: 'Internal Server Error during logout',
+                });
+            }
+
+            req.session.destroy((error) => {
+                if (error) {
+                    return res.status(500).json({
+                        userLogout: false,
+                        message:
+                            'Internal Server Error during session destruction',
+                    });
+                }
+
+                res.clearCookie('connect.sid', { path: '/' });
+                return res
+                    .status(200)
+                    .json({ userLogout: true, message: 'Logout successful' });
+            });
+        });
+    } else {
+        res.status(401).json({ notes: null, message: 'Unauthorized request' });
+    }
+});
 
 // =======================
 // SIGNUP
@@ -93,23 +121,26 @@ router.post('/signup', (req, res) => {
     db.getUserByUsername(username, async (error, user) => {
         if (error) {
             console.error('Signup error:', error);
-            return res
-                .status(500)
-                .json({ registered: false, message: 'Internal Server Error during signup' });
+            return res.status(500).json({
+                registered: false,
+                message: 'Internal Server Error during signup',
+            });
         }
 
         if (user) {
-            return res
-                .status(409)
-                .json({ registered: false, message: 'Username already taken: ' + username });
+            return res.status(409).json({
+                registered: false,
+                message: 'Username already taken: ' + username,
+            });
         } else {
             const salt = pwUtils.generateSalt();
             const hash = await pwUtils.hashPassword(password, salt);
 
             await db.storeUser(username, hash, salt);
-            return res
-                .status(200)
-                .json({ registered: true, message: 'User successfully registered: ' + username });
+            return res.status(200).json({
+                registered: true,
+                message: 'User successfully registered: ' + username,
+            });
         }
     });
 });

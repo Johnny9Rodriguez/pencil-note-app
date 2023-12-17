@@ -51,6 +51,48 @@ export const login = async (loginData, setLoginError) => {
     }
 };
 
+export const logout = async () => {
+    try {
+        const res = await fetch(BASE_API_URL + '/api/users/logout', {
+            method: 'POST',
+            credentials: 'include',
+        })
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            console.error(res.status + ': ' + data.message);
+        } else {
+            console.log(res.status + ': ' + data.message);
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Logout error:', error);
+    }
+};
+
+// try {
+//     const res = await fetch('http://localhost:3001/api/logout', {
+//       method: 'POST',
+//       credentials: 'include'
+//     });
+
+//     if (!res.ok) {
+//       console.error(res.text());
+//       return;
+//     }
+
+//     axeDebounce();
+//     dispatch(setAuth(false));
+//     dispatch(setUser({ id: null, username: null }));
+//     dispatch(init());
+//     navigate('/login');
+
+//   } catch (err) {
+//     console.error('Error on logout: ', err);
+//   }
+
 export const signup = async (signupData, setSignupError) => {
     try {
         const res = await fetch(BASE_API_URL + '/api/users/signup', {
