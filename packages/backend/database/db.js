@@ -45,16 +45,19 @@ function storeUser(username, hash, salt) {
     return pool.query(query, [username, hash, salt]);
 }
 
+// @todo delete
 function createNote(userId) {
     const query = 'INSERT INTO notes (user_id, title, content) VALUES ($1, \'\', \'\') RETURNING id';
     return pool.query(query, [userId]);
 }
 
+// @todo delete
 function deleteNote(noteId) {
     const query = 'DELETE FROM notes WHERE id = $1'
     return pool.query(query, [noteId]);
 }
 
+// @todo delete
 function updateNote(noteId, title, content) {
     const query = `
         UPDATE notes
@@ -64,9 +67,13 @@ function updateNote(noteId, title, content) {
     return pool.query(query, [title, content, noteId]);
 }
 
-function loadNotes(userId) {
+function loadUserNotes(userId) {
     const query = 'SELECT * FROM notes WHERE user_id = $1 ORDER BY created_at ASC';
     return pool.query(query, [userId]);
+}
+
+function storeUserNotes(userId, notes) {
+    // @todo implement
 }
 
 module.exports = { 
@@ -76,5 +83,5 @@ module.exports = {
     createNote,
     deleteNote,
     updateNote,
-    loadNotes
+    loadUserNotes
 };

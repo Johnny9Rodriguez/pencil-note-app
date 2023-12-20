@@ -1,38 +1,52 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
+
+const storeLocally = (userNotes) => {
+    localStorage.setItem('userNotes', JSON.stringify(userNotes));
+    localStorage.setItem('lastUpdated', Date.now());
+}
 
 export const noteDataSlice = createSlice({
     name: 'noteData',
     initialState: {
-        notes: [],
-        selectedNote: {}
+        userNotes: [],
+        selectedNote: {},
     },
     reducers: {
-        add: (state, action) => {
-            const noteId = action.payload.noteId;
+        add: (state) => {
+            const noteId = uuidv4();
 
-            const newNote = { id: noteId, title: '', content: '' };
+            const newNote = { noteId, title: '', content: '' };
 
-            state.notes.push(newNote);
+            const updatedUserNotes = [...state.userNotes, newNote];
+
+            state.userNotes = updatedUserNotes;
             state.selectedNote = newNote;
+
+            storeLocally(updatedUserNotes);
         },
-        remove: (state, action) => { 
-            const id = action.payload;
+        remove: (state, action) => {
+            const noteId = action.payload;
 
-            state.notes = state.notes.filter(note => note.id !== id);
+            const updatedUserNotes = state.userNotes.filter((note) => note.noteId !== noteId);
 
-            if (state.selectedNote.id === id) {
-                if (state.notes.length === 0) {
+            state.userNotes = updatedUserNotes;
+
+            if (state.selectedNote.noteId === noteId) {
+                if (state.userNotes.length === 0) {
                     state.selectedNote = {};
                 } else {
-                    state.selectedNote = state.notes[0];
+                    state.selectedNote = state.userNotes[0];
                 }
             }
+
+            storeLocally(updatedUserNotes);
         },
         update: (state, action) => {
-            const { id, title, content } = action.payload;
+            const { noteId, title, content } = action.payload;
 
-            if (state.selectedNote.id === id) {
-                const note = state.notes.find(note => note.id === id);
+            if (state.selectedNote.noteId === noteId) {
+                const note = state.userNotes.find((note) => note.noteId === noteId);
 
                 if (note) {
                     // Update note state
@@ -40,28 +54,37 @@ export const noteDataSlice = createSlice({
                     note.content = content;
 
                     // Update selected note
-                    state.selectedNote = { ...state.selectedNote, title, content };
+                    state.selectedNote = {
+                        ...state.selectedNote,
+                        title,
+                        content,
+                    };
                 }
             }
 
+            const updatedUserNotes = state.userNotes;
+
+            storeLocally(updatedUserNotes);
         },
         select: (state, action) => {
             state.selectedNote = action.payload;
         },
         init: (state) => {
-            state.notes = [];
+            // Invoked on logout, i.e. do not update local storage / delete userNotes from it.
+            state.userNotes = [];
             state.selectedNote = {};
         },
         setNotes: (state, action) => {
-            const loadedNotes = action.payload;
-            if (loadedNotes.length > 0) {
-                state.notes = loadedNotes;
-                state.selectedNote = state.notes[0];
+            const fetchedNotes = action.payload;
+            if (fetchedNotes.length > 0) {
+                state.userNotes = fetchedNotes;
+                state.selectedNote = state.userNotes[0];
             }
-        }
-    }
-})
+        },
+    },
+});
 
-export const { add, remove, update, select, init, setNotes } = noteDataSlice.actions;
+export const { add, remove, update, select, init, setNotes } =
+    noteDataSlice.actions;
 
 export default noteDataSlice.reducer;

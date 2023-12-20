@@ -5,7 +5,6 @@ import { NoteSelection } from '../components/NoteSelection';
 import { NoteEditor } from '../components/NoteEditor';
 import { Footer } from '../components/Footer';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchNotes } from '../api/noteApi';
 import { setNotes } from '../slices/noteDataSlice';
 
 export const Dashboard = () => {
@@ -17,15 +16,11 @@ export const Dashboard = () => {
     // Load stored notes for authenticated user.
     useEffect(() => {
         if (!hasFetchedNotes.current) {
-            const loadNotes = async () => {
-                const notes = await fetchNotes(user.id);
+            const fetchedNotes = localStorage.getItem('userNotes');
+            if (fetchedNotes) {
+                dispatch(setNotes(JSON.parse(fetchedNotes)));
+            }
 
-                if (notes) {
-                    dispatch(setNotes(notes));
-                }
-            };
-
-            loadNotes();
             hasFetchedNotes.current = true;
         }
     }, [dispatch, user.id]);

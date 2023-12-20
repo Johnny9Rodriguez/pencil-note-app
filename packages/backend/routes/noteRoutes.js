@@ -10,7 +10,7 @@ router.get('/:userId', async (req, res) => {
     if (req.isAuthenticated()) {
         const userId = req.params.userId;
 
-        const notes = (await db.loadNotes(userId)).rows;
+        const notes = (await db.loadUserNotes(userId)).rows;
 
         if (!notes) {
             console.error('Database loading error:', error);

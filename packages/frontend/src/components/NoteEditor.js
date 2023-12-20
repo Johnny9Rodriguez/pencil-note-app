@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { update } from '../slices/noteDataSlice';
-import { debounce, axeDebounce } from '../utils/debounceNoteUpdate';
 
-const Editor = ({ selected, handleOnChange }) => {
+const Editor = ({ selectedNote, handleOnChange }) => {
     return (
         <>
             <textarea
                 name='title'
                 className='px-2 pt-4 h-16 text-4xl font-semibold whitespace-nowrap'
                 placeholder='Enter a title'
-                value={selected.title}
+                value={selectedNote.title}
                 onChange={handleOnChange}
                 maxLength={128}
                 spellCheck='false'
@@ -20,7 +19,7 @@ const Editor = ({ selected, handleOnChange }) => {
                 name='content'
                 className='flex-grow p-2 pl-3 text-xl'
                 placeholder='Enter a note'
-                value={selected.content}
+                value={selectedNote.content}
                 onChange={handleOnChange}
                 maxLength={10000}
                 spellCheck='false'
@@ -44,29 +43,18 @@ const Empty = () => {
 }
 
 export const NoteEditor = () => {
-    const notes = useSelector((state) => state.noteData.notes);
-    const selected = useSelector((state) => state.noteData.selectedNote);
+    const userNotes = useSelector((state) => state.noteData.userNotes);
+    const selectedNote = useSelector((state) => state.noteData.selectedNote);
     const dispatch = useDispatch();
 
     const handleOnChange = async (event) => {
         const { name, value } = event.target;
-        dispatch(update({ ...selected, [name]: value }));
-
-        const data = {
-            ...selected,
-            [name]: value
-        }
-
-        debounce(data);
+        dispatch(update({ ...selectedNote, [name]: value }));
     }
-
-    useEffect(() => {
-        axeDebounce();
-    }, [selected.id]);
 
     return (
         <div className='note-editor truncate flex flex-col flex-grow bg-white'>
-            {notes.length !== 0 ? <Editor selected={selected} handleOnChange={handleOnChange} /> : <Empty />}
+            {userNotes.length > 0 ? <Editor selectedNote={selectedNote} handleOnChange={handleOnChange} /> : <Empty />}
         </div>
     )
 }
