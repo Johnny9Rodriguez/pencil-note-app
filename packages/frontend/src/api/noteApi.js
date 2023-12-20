@@ -20,3 +20,24 @@ export const fetchNotes = async (userId) => {
         console.error('Error fetching notes:', error);
     }
 };
+
+export const createNote = async (userId) => {
+    const res = await fetch(BASE_API_URL + '/api/notes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId }),
+        credentials: 'include',
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        console.error(res.status + ': ' + data.message);
+    } else {
+        console.log(res.status + ': ' + data.message);
+    }
+
+    return data;
+};

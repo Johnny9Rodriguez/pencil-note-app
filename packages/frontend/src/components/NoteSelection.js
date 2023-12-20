@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { add } from '../slices/noteDataSlice';
 import { NoteCard } from './NoteCard';
 import { Icon } from '@iconify/react';
+import { createNote } from '../api/noteApi';
 
 export const NoteSelection = () => {
     const notes = useSelector((state) => state.noteData.notes);
@@ -14,26 +15,10 @@ export const NoteSelection = () => {
     const [hoverDelete, setHoverDelete] = useState(null);
 
     const handleNoteCreation = async () => {
-        try {
-            const data = { userId: user.id };
+        const noteId = (await createNote(user.id)).noteId;
 
-            const res = await fetch('http://localhost:3001/api/note', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data),
-                credentials: 'include'
-            })
-
-            if (res.status === 201) {
-                const jsonData = await res.json();
-                dispatch(add({ noteId: jsonData.noteId }));
-            } else {
-                console.error('Failed to create note, status:', res.status);
-            }
-        } catch (err) {
-            console.error('Error creating a new note in database.', err);
+        if (noteId) {
+            dispatch(add({ noteId }))
         }
     }
 

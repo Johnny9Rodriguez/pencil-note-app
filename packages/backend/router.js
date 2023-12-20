@@ -8,24 +8,6 @@ const router = express.Router();
 router.use('/api/users', userRouter);
 router.use('/api/notes', noteRouter);
 
-router.post('/api/note', async (req, res) => {
-    if (req.isAuthenticated()) {
-        const { userId } = req.body;
-
-        try {
-            const result = await db.createNote(userId);
-            const noteId = result.rows[0].id;
-            res.status(201).send({
-                message: 'Note created successfully',
-                noteId: noteId,
-            });
-        } catch (err) {
-            console.error(err);
-            res.status(500).send({ message: 'Internal server error' });
-        }
-    }
-});
-
 router.put('/api/note', async (req, res) => {
     if (req.isAuthenticated()) {
         const { id, title, content } = req.body;
