@@ -7,10 +7,10 @@ const pool = new Pool({
 });
 
 function getUserByUsername(username, callback) {
-    pool.query('SELECT * FROM users WHERE username = $1', [username], (err, result) => {
-        if (err) {
-            console.error('Error in getUserByUsername', err);
-            return callback(err, null);
+    pool.query('SELECT * FROM users WHERE username = $1', [username], (error, result) => {
+        if (error) {
+            console.error('Error in getUserByUsername', error);
+            return callback(error, null);
         }
 
         if (result.rows.length === 0) {
@@ -23,11 +23,11 @@ function getUserByUsername(username, callback) {
     });
 }
 
-function getUserById(id, callback) {
-    pool.query('SELECT * FROM users WHERE id = $1', [id], (err, result) => {
-        if (err) {
-            console.error('Error in getUserByUsername', err);
-            return callback(err, null);
+function getUserById(userId, callback) {
+    pool.query('SELECT * FROM users WHERE user_id = $1', [userId], (error, result) => {
+        if (error) {
+            console.error('Error in getUserByUsername', error);
+            return callback(error, null);
         }
 
         if (result.rows.length === 0) {
@@ -41,30 +41,8 @@ function getUserById(id, callback) {
 }
 
 function storeUser(username, hash, salt) {
-    const query = 'INSERT INTO users (username, hash, salt) VALUES ($1, $2, $3)';
+    const query = 'INSERT INTO users (username, pw_hash, pw_salt) VALUES ($1, $2, $3)';
     return pool.query(query, [username, hash, salt]);
-}
-
-// @todo delete
-function createNote(userId) {
-    const query = 'INSERT INTO notes (user_id, title, content) VALUES ($1, \'\', \'\') RETURNING id';
-    return pool.query(query, [userId]);
-}
-
-// @todo delete
-function deleteNote(noteId) {
-    const query = 'DELETE FROM notes WHERE id = $1'
-    return pool.query(query, [noteId]);
-}
-
-// @todo delete
-function updateNote(noteId, title, content) {
-    const query = `
-        UPDATE notes
-        SET title = $1, content = $2
-        WHERE id = $3
-    `;
-    return pool.query(query, [title, content, noteId]);
 }
 
 function loadUserNotes(userId) {
@@ -80,8 +58,5 @@ module.exports = {
     getUserByUsername,
     getUserById, 
     storeUser,
-    createNote,
-    deleteNote,
-    updateNote,
     loadUserNotes
 };

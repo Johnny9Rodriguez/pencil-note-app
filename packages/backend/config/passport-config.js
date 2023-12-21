@@ -15,13 +15,13 @@ passport.use(new LocalStrategy(
             }
 
             // Password verification
-            const hash = await hashPassword(password, user.salt);
+            const hash = await hashPassword(password, user.pw_salt);
                 /*  Stored and newly generated hash are both in hexadecimal form.
                     For timingSafeEqual both objects must be of type Buffer,
                     hence the conversion. */
-            const storedHash = Buffer.from(hash, 'hex');
-            const userHash = Buffer.from(user.hash, 'hex');
-            if (!crypto.timingSafeEqual(storedHash, userHash)) {
+            const checkHash = Buffer.from(hash, 'hex');
+            const userHash = Buffer.from(user.pw_hash, 'hex');
+            if (!crypto.timingSafeEqual(checkHash, userHash)) {
                 return done(null, false, { msg: 'Incorrect username or password'});
             }
 
@@ -31,7 +31,7 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser((user, done) => {
-    return done(null, user.id);
+    return done(null, user.user_id);
 });
 
 passport.deserializeUser((id, done) => {

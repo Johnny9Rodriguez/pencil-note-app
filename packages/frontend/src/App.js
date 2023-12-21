@@ -26,7 +26,7 @@ export const App = () => {
                     dispatch(setAuth(true));
                     dispatch(
                         setUser({
-                            id: data.user.id,
+                            userId: data.user.userId,
                             username: data.user.username,
                         })
                     );

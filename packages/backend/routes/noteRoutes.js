@@ -31,24 +31,4 @@ router.get('/:userId', async (req, res) => {
     }
 });
 
-// =======================
-// CREATE NOTE
-// =======================
-router.post('/', async (req, res) => {
-    if (req.isAuthenticated()) {
-        const { userId } = req.body;
-
-        try {
-            const noteId = (await db.createNote(userId)).rows[0].id;
-            res.status(201).json({ noteId, message: 'New note created' });
-        } catch (error) {
-            console.log('Error creating new note:', error);
-            res.status(500).json({
-                noteId: null,
-                message: 'Internal server error',
-            });
-        }
-    }
-});
-
 module.exports = router;

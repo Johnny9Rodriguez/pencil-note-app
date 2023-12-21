@@ -36,10 +36,12 @@ export const LoginPage = () => {
 
         const data = await login(loginData, setLoginError);
 
+        console.log(data);
+
         if (data && data.authenticated) {
             dispatch(setAuth(true));
             dispatch(
-                setUser({ id: data.user.id, username: data.user.username })
+                setUser({ userId: data.user.userId, username: data.user.username })
             );
             navigate('/dashboard');
         }
