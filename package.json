@@ -4,9 +4,10 @@
   "description": "A full-stack note-taking application built with React, Express, Node.js, Passport.js, and PostgreSQL. Create, view, and edit notes securely with user account functionality.",
   "main": "index.js",
   "scripts": {
-    "frontend": "npm run start -w frontend",
-    "backend": "npm run start -w backend",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "frontend": "npm run dev -w frontend",
+    "backend": "npm run dev -w backend",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm:frontend\" \"npm:backend\""
   },
   "author": "Joe Pytlik",
   "license": "MIT",
@@ -15,5 +16,8 @@
     "packages": [
       "packages/*"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
