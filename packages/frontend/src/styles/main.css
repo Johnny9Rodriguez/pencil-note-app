@@ -703,6 +703,20 @@ video {
   animation: shake 0.5s;
 }
 
+@keyframes reverseSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+.animate-sync-spin {
+  animation: reverseSpin 3s linear infinite;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -1072,6 +1086,18 @@ input:focus {
   overflow: scroll;
   border: 1px solid #004c5b;
   border-right: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+  /* for Chrome, Safari, and Opera */
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  /* for Internet Explorer and Edge */
+  scrollbar-width: none;
+  /* for Firefox */
 }
 
 .note-editor {

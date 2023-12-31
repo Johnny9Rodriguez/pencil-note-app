@@ -24,7 +24,7 @@ export const NoteSelection = () => {
     }, [userNotes]);
 
     return (
-        <div className='note-selection flex flex-col items-center gap-1 p-1 bg-black bg-opacity-20'>
+        <div className='note-selection flex flex-col hide-scrollbar items-center gap-1 p-1 bg-black bg-opacity-20'>
             {userNotes.map((note, index) => (
                 <NoteCard
                     key={note.noteId}

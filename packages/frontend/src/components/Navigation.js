@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { setAuth, setUser } from '../slices/authSlice';
 import { init } from '../slices/noteDataSlice';
 import { logout } from '../api/userApi';
+import SyncButton from './SyncButton';
 
 export const Navigation = () => {
     const user = useSelector((state) => state.auth.user);
@@ -35,6 +36,7 @@ export const Navigation = () => {
                 <h1 className='text-white text-4xl'>Pencil</h1>
             </div>
             <div className='flex items-center gap-7'>
+                <SyncButton />
                 <button
                     className='flex items-center gap-1 text-white hover:text-brightTeal'
                     onClick={() => dispatch(setModal(modalTypes.DelAcc))}

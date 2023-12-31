@@ -24,7 +24,8 @@ module.exports = {
         '480': '480px'
       },
       animation: {
-        'error-shake': 'shake 0.5s'
+        'error-shake': 'shake 0.5s',
+        'sync-spin': 'reverseSpin 3s linear infinite'
       },
       keyframes: {
         shake: {
@@ -32,6 +33,10 @@ module.exports = {
           '25%': {transform: 'translateX(-5px)'},
           '50%': {transform: 'translateX(5px)'},
           '75%': {transform: 'translateX(-5px)'},
+        },
+        reverseSpin: {
+          '0%': {transform: 'rotate(0deg)'},
+          '100%': {transform: 'rotate(-360deg)'}, 
         }
       }
     },
