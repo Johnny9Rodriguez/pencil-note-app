@@ -12,9 +12,6 @@ router.get('/:userId', async (req, res) => {
 
         const noteData = await db.loadUserNotes(userId);
 
-        // Pre process data: notes JSON + last_updated BIGINT
-        console.log(noteData.rows);
-
         if (!noteData) {
             console.error('Database loading error:', error);
             return res.status(500).json({
@@ -40,6 +37,29 @@ router.get('/:userId', async (req, res) => {
             lastUpdated: null,
             message: 'Unauthorized access',
         });
+    }
+});
+
+// =======================
+// STORE NOTES
+// =======================
+router.post('/', async (req, res) => {
+    if (req.isAuthenticated()) {
+        const { userId, userNotes } = req.body;
+
+        db.storeUserNotes(userId, userNotes)
+            .then(() => {
+                console.log('Storing notes successful: ', userId);
+                res.status(200).json({
+                    message: 'Notes stored successfully on server.',
+                });
+            })
+            .catch(() => {
+                res.status(500).json({
+                    message:
+                        'Internal Server Error during storing notes in database',
+                });
+            });
     }
 });
 

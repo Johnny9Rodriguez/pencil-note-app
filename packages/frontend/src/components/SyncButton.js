@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { resetIsModifiedSinceLastSync } from '../slices/noteDataSlice';
+import { storeNotes } from '../api/noteApi';
 
 // animate-sync-spin
 
@@ -9,6 +10,8 @@ function SyncButton() {
     const isModifiedSinceLastSync = useSelector(
         (state) => state.noteData.isModifiedSinceLastSync
     );
+    const userId = useSelector((state) => state.auth.user.userId);
+    const userNotes = useSelector((state) => state.noteData.userNotes);
     const [isSyncing, setIsSyncing] = useState(false);
 
     const dispatch = useDispatch();
@@ -16,12 +19,15 @@ function SyncButton() {
     const syncNotesWithServer = () => {
         if (!isSyncing && isModifiedSinceLastSync) {
             setIsSyncing(true);
+            console.log('Syncing notes with server.');
 
-            // ... fetch implementation
-            setTimeout(() => {
-                dispatch(resetIsModifiedSinceLastSync());
-                setIsSyncing(false);
-            }, 2000);
+            storeNotes({ userId, userNotes }).then(
+                setTimeout(() => {
+                    dispatch(resetIsModifiedSinceLastSync());
+                    setIsSyncing(false);
+                    console.log('Synchronization finished.');
+                }, 2000)
+            );
         }
     };
 
@@ -39,7 +45,8 @@ function SyncButton() {
             onClick={syncNotesWithServer}
         >
             <Icon
-                icon='ic:baseline-sync' className={`text-xl ${syncIconStyle()}`}
+                icon='ic:baseline-sync'
+                className={`text-xl ${syncIconStyle()}`}
             />
             <p>Sync</p>
         </button>
