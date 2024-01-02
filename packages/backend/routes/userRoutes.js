@@ -11,7 +11,7 @@ const router = express.Router();
 router.get('/auth-check', (req, res) => {
     // 'isAuthenticated()' compares cookie in request with stored session cookies, i.e. if it is stored or not.
     if (req.isAuthenticated()) {
-        console.log('User authentication successful ID: ' + req.user.user_id);
+        console.log('> User authentication successful:\n#', req.user.user_id);
 
         return res.status(200).json({
             authenticated: true,
@@ -19,7 +19,7 @@ router.get('/auth-check', (req, res) => {
             user: { userId: req.user.user_id, username: req.user.username },
         });
     } else {
-        console.log('User authentication rejected');
+        console.log('> User authentication rejected');
 
         return res.status(401).json({
             authenticated: false,
@@ -45,7 +45,7 @@ router.post('/login', (req, res, next) => {
         }
 
         if (!user) {
-            console.log('User authentication rejected');
+            console.log('> User authentication rejected');
             return res.status(401).json({
                 authenticated: false,
                 message: 'Authentication rejected',
@@ -69,7 +69,7 @@ router.post('/login', (req, res, next) => {
                 req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
             }
 
-            console.log('New login:', user.user_id);
+            console.log('> New login:\n#', user.user_id);
             return res.status(200).json({
                 authenticated: true,
                 message: 'Login successful',
@@ -137,7 +137,7 @@ router.post('/signup', (req, res) => {
             const salt = pwUtils.generateSalt();
             const hash = await pwUtils.hashPassword(password, salt);
 
-            console.log('New user:', username);
+            console.log('> New user:\n#', username);
 
             await db.storeUser(username, hash, salt);
             return res.status(200).json({

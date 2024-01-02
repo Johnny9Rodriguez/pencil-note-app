@@ -25,7 +25,7 @@ router.get('/:userId', async (req, res) => {
         const notes = noteData.rows[0].notes;
         const lastUpdated = noteData.rows[0].last_updated;
 
-        console.log('Loading notes successful:', userId);
+        console.log('> Loading notes successful:\n#', userId);
         return res.status(200).json({
             notes: notes,
             lastUpdated: lastUpdated,
@@ -49,7 +49,7 @@ router.post('/', async (req, res) => {
 
         db.storeUserNotes(userId, userNotes)
             .then(() => {
-                console.log('Storing notes successful: ', userId);
+                console.log('> Storing notes successful:\n#', userId);
                 res.status(200).json({
                     message: 'Notes stored successfully on server.',
                 });
