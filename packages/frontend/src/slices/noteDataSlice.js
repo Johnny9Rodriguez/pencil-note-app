@@ -1,16 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
-const storeLocally = (userNotes) => {
+const storeLocally = (state, userNotes) => {
     localStorage.setItem('userNotes', JSON.stringify(userNotes));
     localStorage.setItem('lastUpdated', Date.now());
-}
+
+    state.isModifiedSinceLastSync = true;
+};
 
 export const noteDataSlice = createSlice({
     name: 'noteData',
     initialState: {
         userNotes: [],
         selectedNote: {},
+        isModifiedSinceLastSync: false,
     },
     reducers: {
         add: (state) => {
@@ -23,12 +26,14 @@ export const noteDataSlice = createSlice({
             state.userNotes = updatedUserNotes;
             state.selectedNote = newNote;
 
-            storeLocally(updatedUserNotes);
+            storeLocally(state, updatedUserNotes);
         },
         remove: (state, action) => {
             const noteId = action.payload;
 
-            const updatedUserNotes = state.userNotes.filter((note) => note.noteId !== noteId);
+            const updatedUserNotes = state.userNotes.filter(
+                (note) => note.noteId !== noteId
+            );
 
             state.userNotes = updatedUserNotes;
 
@@ -40,13 +45,15 @@ export const noteDataSlice = createSlice({
                 }
             }
 
-            storeLocally(updatedUserNotes);
+            storeLocally(state, updatedUserNotes);
         },
         update: (state, action) => {
             const { noteId, title, content } = action.payload;
 
             if (state.selectedNote.noteId === noteId) {
-                const note = state.userNotes.find((note) => note.noteId === noteId);
+                const note = state.userNotes.find(
+                    (note) => note.noteId === noteId
+                );
 
                 if (note) {
                     // Update note state
@@ -64,7 +71,7 @@ export const noteDataSlice = createSlice({
 
             const updatedUserNotes = state.userNotes;
 
-            storeLocally(updatedUserNotes);
+            storeLocally(state, updatedUserNotes);
         },
         select: (state, action) => {
             state.selectedNote = action.payload;
@@ -81,10 +88,20 @@ export const noteDataSlice = createSlice({
                 state.selectedNote = state.userNotes[0];
             }
         },
+        resetIsModifiedSinceLastSync: (state) => {
+            state.isModifiedSinceLastSync = false;
+        },
     },
 });
 
-export const { add, remove, update, select, init, setNotes } =
-    noteDataSlice.actions;
+export const {
+    add,
+    remove,
+    update,
+    select,
+    init,
+    setNotes,
+    resetIsModifiedSinceLastSync,
+} = noteDataSlice.actions;
 
 export default noteDataSlice.reducer;
