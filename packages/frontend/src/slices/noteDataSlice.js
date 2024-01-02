@@ -88,8 +88,8 @@ export const noteDataSlice = createSlice({
                 state.selectedNote = state.userNotes[0];
             }
         },
-        resetIsModifiedSinceLastSync: (state) => {
-            state.isModifiedSinceLastSync = false;
+        setIsModifiedSinceLastSync: (state, action) => {
+            state.isModifiedSinceLastSync = action.payload;
         },
     },
 });
@@ -101,7 +101,7 @@ export const {
     select,
     init,
     setNotes,
-    resetIsModifiedSinceLastSync,
+    setIsModifiedSinceLastSync,
 } = noteDataSlice.actions;
 
 export default noteDataSlice.reducer;

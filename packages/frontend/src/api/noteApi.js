@@ -24,7 +24,6 @@ export const fetchNotes = async (userId) => {
 
 export const storeNotes = async (noteData) => {
     try {
-        console.log(noteData)
         const res = await fetch(BASE_API_URL + '/api/notes', {
             method: 'POST',
             headers: {

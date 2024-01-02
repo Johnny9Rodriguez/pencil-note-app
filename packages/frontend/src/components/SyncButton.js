@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 import { useSelector, useDispatch } from 'react-redux';
-import { resetIsModifiedSinceLastSync } from '../slices/noteDataSlice';
+import { setIsModifiedSinceLastSync } from '../slices/noteDataSlice';
 import { storeNotes } from '../api/noteApi';
 
 // animate-sync-spin
@@ -16,14 +16,24 @@ function SyncButton() {
 
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        const lastUpdated = localStorage.getItem('lastUpdated');
+        const lastSynced = localStorage.getItem('lastSynced');
+
+        if (lastUpdated > lastSynced) {
+            dispatch(setIsModifiedSinceLastSync(true));
+        }
+    }, []);
+
     const syncNotesWithServer = () => {
         if (!isSyncing && isModifiedSinceLastSync) {
             setIsSyncing(true);
+            localStorage.setItem('lastSynced', Date.now());
             console.log('Syncing notes with server.');
 
             storeNotes({ userId, userNotes }).then(
                 setTimeout(() => {
-                    dispatch(resetIsModifiedSinceLastSync());
+                    dispatch(setIsModifiedSinceLastSync(false));
                     setIsSyncing(false);
                     console.log('Synchronization finished.');
                 }, 2000)
