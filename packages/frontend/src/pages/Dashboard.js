@@ -22,11 +22,15 @@ export const Dashboard = () => {
 
             // Fetch notes from server and compare timestamps to load newest set of notes.
             fetchNotes(user.userId).then((noteData) => {
-                const notes =
-                    localLastUpdated > noteData.lastUpdated
-                        ? JSON.parse(localFetchedNotes)
-                        : noteData.notes;
-                dispatch(setNotes(notes));
+                if (noteData) {
+                    const notes =
+                        localLastUpdated > noteData.lastUpdated
+                            ? JSON.parse(localFetchedNotes)
+                            : noteData.notes;
+                    dispatch(setNotes(notes));
+                } else {
+                    dispatch(setNotes(localFetchedNotes));
+                }
             });
 
             hasFetchedNotes.current = true;

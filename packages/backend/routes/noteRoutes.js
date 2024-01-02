@@ -12,6 +12,8 @@ router.get('/:userId', async (req, res) => {
 
         const noteData = await db.loadUserNotes(userId);
 
+        console.log(typeof noteData)
+
         if (!noteData) {
             console.error('Database loading error:', error);
             return res.status(500).json({
@@ -22,8 +24,8 @@ router.get('/:userId', async (req, res) => {
             });
         }
 
-        const notes = noteData.rows[0].notes;
-        const lastUpdated = noteData.rows[0].last_updated;
+        const notes = (noteData.rows[0] && noteData.rows[0].notes) || [];
+        const lastUpdated = (noteData.rows[0] && noteData.rows[0].last_updated) || null;
 
         console.log('> Loading notes successful:\n#', userId);
         return res.status(200).json({

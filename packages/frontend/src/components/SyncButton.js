@@ -29,14 +29,12 @@ function SyncButton() {
         if (!isSyncing && isModifiedSinceLastSync) {
             setIsSyncing(true);
             localStorage.setItem('lastSynced', Date.now());
-            console.log('Syncing notes with server.');
 
             storeNotes({ userId, userNotes }).then(
                 setTimeout(() => {
                     dispatch(setIsModifiedSinceLastSync(false));
                     setIsSyncing(false);
-                    console.log('Synchronization finished.');
-                }, 2000)
+                }, 777)
             );
         }
     };
