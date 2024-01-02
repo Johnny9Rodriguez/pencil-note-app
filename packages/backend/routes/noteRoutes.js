@@ -10,26 +10,36 @@ router.get('/:userId', async (req, res) => {
     if (req.isAuthenticated()) {
         const userId = req.params.userId;
 
-        const notes = (await db.loadUserNotes(userId)).rows;
+        const noteData = await db.loadUserNotes(userId);
 
-        console.log(notes);
+        // Pre process data: notes JSON + last_updated BIGINT
+        console.log(noteData.rows);
 
-        if (!notes) {
+        if (!noteData) {
             console.error('Database loading error:', error);
             return res.status(500).json({
                 notes: null,
+                lastUpdated: null,
                 message:
                     'Internal Server Error during loading notes from database',
             });
         }
 
+        const notes = noteData.rows[0].notes;
+        const lastUpdated = noteData.rows[0].last_updated;
+
         console.log('Loading notes successful:', userId);
         return res.status(200).json({
-            notes,
+            notes: notes,
+            lastUpdated: lastUpdated,
             message: 'Loading notes successful',
         });
     } else {
-        res.status(401).json({ notes: null, message: 'Unauthorized access' });
+        res.status(401).json({
+            notes: null,
+            lastUpdated: null,
+            message: 'Unauthorized access',
+        });
     }
 });
 

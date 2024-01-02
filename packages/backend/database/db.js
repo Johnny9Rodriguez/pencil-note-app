@@ -46,7 +46,7 @@ function storeUser(username, hash, salt) {
 }
 
 function loadUserNotes(userId) {
-    const query = 'SELECT * FROM notes WHERE user_id = $1 ORDER BY created_at ASC';
+    const query = 'SELECT notes, last_updated FROM notes WHERE user_id = $1';
     return pool.query(query, [userId]);
 }
 

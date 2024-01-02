@@ -6,6 +6,7 @@ import { NoteEditor } from '../components/NoteEditor';
 import { Footer } from '../components/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNotes } from '../slices/noteDataSlice';
+import { fetchNotes } from '../api/noteApi';
 
 export const Dashboard = () => {
     const user = useSelector((state) => state.auth.user);
@@ -16,14 +17,21 @@ export const Dashboard = () => {
     // Load stored notes for authenticated user.
     useEffect(() => {
         if (!hasFetchedNotes.current) {
-            const fetchedNotes = localStorage.getItem('userNotes');
-            if (fetchedNotes) {
-                dispatch(setNotes(JSON.parse(fetchedNotes)));
-            }
+            const localFetchedNotes = localStorage.getItem('userNotes');
+            const localLastUpdated = localStorage.getItem('lastUpdated');
+
+            // Fetch notes from server and compare timestamps to load newest set of notes.
+            fetchNotes(user.userId).then((noteData) => {
+                const notes =
+                    localLastUpdated > noteData.lastUpdated
+                        ? JSON.parse(localFetchedNotes)
+                        : noteData.notes;
+                dispatch(setNotes(notes));
+            });
 
             hasFetchedNotes.current = true;
         }
-    }, [dispatch, user.id]);
+    }, [dispatch, user.userId]);
     return (
         <div className='relative flex flex-col mx-auto h-screen min-h-480'>
             <Modals />
