@@ -48,7 +48,7 @@ export const Navigation = () => {
                     <p className='hidden md:block text-md'>{user.username}</p>
                 </button>
                 <button
-                    className='border border-white text-white px-3 py-1 hover:text-brightCrimson hover:border-brightCrimson'
+                    className='border border-white text-white mx-1 px-3 py-1 hover:text-brightCrimson hover:border-brightCrimson'
                     onClick={handleLogout}
                 >
                     Logout
