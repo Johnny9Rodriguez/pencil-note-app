@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require('../database/db');
+const chalk = require('chalk');
 
 const router = express.Router();
 
@@ -25,7 +26,7 @@ router.get('/:userId', async (req, res) => {
         const notes = (noteData.rows[0] && noteData.rows[0].notes) || [];
         const lastUpdated = (noteData.rows[0] && noteData.rows[0].last_updated) || null;
 
-        console.log('> Loading notes successful:\n#', userId);
+        console.log('Loading notes successful:\n ', chalk.dim(userId));
         return res.status(200).json({
             notes: notes,
             lastUpdated: lastUpdated,
@@ -49,7 +50,7 @@ router.post('/', async (req, res) => {
 
         db.storeUserNotes(userId, userNotes)
             .then(() => {
-                console.log('> Storing notes successful:\n#', userId);
+                console.log('Storing notes successful:\n ', chalk.dim(userId));
                 res.status(200).json({
                     message: 'Notes stored successfully on server.',
                 });

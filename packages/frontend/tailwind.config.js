@@ -6,7 +6,7 @@ module.exports = {
       colors: {
         'bgLight': '#10222E',
         'bgDark': '#01111E',
-        'brightCrimson': '#BD0000',
+        'brightCrimson': '#DC143C',
         'brightTeal': '#00C6B1',
         'darkTeal': '#004C5B'
       },

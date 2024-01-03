@@ -15,6 +15,7 @@
     "nodemon": "^3.0.2"
   },
   "dependencies": {
+    "chalk": "^4.1.2",
     "connect-pg-simple": "^9.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",

@@ -798,7 +798,7 @@ video {
 
 .border-brightCrimson {
   --tw-border-opacity: 1;
-  border-color: rgb(189 0 0 / var(--tw-border-opacity));
+  border-color: rgb(220 20 60 / var(--tw-border-opacity));
 }
 
 .border-brightTeal {
@@ -823,7 +823,7 @@ video {
 
 .bg-brightCrimson {
   --tw-bg-opacity: 1;
-  background-color: rgb(189 0 0 / var(--tw-bg-opacity));
+  background-color: rgb(220 20 60 / var(--tw-bg-opacity));
 }
 
 .bg-brightTeal {
@@ -1020,7 +1020,7 @@ video {
 
 .text-brightCrimson {
   --tw-text-opacity: 1;
-  color: rgb(189 0 0 / var(--tw-text-opacity));
+  color: rgb(220 20 60 / var(--tw-text-opacity));
 }
 
 .text-brightTeal {
@@ -1167,7 +1167,7 @@ input:-webkit-autofill:active {
 
 .hover\:border-brightCrimson:hover {
   --tw-border-opacity: 1;
-  border-color: rgb(189 0 0 / var(--tw-border-opacity));
+  border-color: rgb(220 20 60 / var(--tw-border-opacity));
 }
 
 .hover\:border-brightTeal:hover {
@@ -1182,7 +1182,7 @@ input:-webkit-autofill:active {
 
 .hover\:text-brightCrimson:hover {
   --tw-text-opacity: 1;
-  color: rgb(189 0 0 / var(--tw-text-opacity));
+  color: rgb(220 20 60 / var(--tw-text-opacity));
 }
 
 .hover\:text-brightTeal:hover {
