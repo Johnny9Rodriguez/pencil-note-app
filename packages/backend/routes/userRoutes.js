@@ -2,8 +2,16 @@ const express = require('express');
 const passport = require('passport');
 const db = require('../database/db');
 const pwUtils = require('../utils/password-utils');
+const crypto = require('crypto');
 
 const router = express.Router();
+
+// Creates key for local storage.
+function hashKey(hash, salt) {
+    const key = crypto.createHash('sha256');
+    key.update(hash + salt);
+    return key.digest('hex');
+}
 
 // =======================
 // CHECK AUTHENTICATION
@@ -13,10 +21,16 @@ router.get('/auth-check', (req, res) => {
     if (req.isAuthenticated()) {
         console.log('> User authentication successful:\n#', req.user.user_id);
 
+        const key = hashKey(req.user.pw_hash, req.user.pw_salt);
+
         return res.status(200).json({
             authenticated: true,
             message: 'Authentication successful',
-            user: { userId: req.user.user_id, username: req.user.username },
+            user: {
+                userId: req.user.user_id,
+                username: req.user.username,
+                key,
+            },
         });
     } else {
         console.log('> User authentication rejected');
@@ -70,11 +84,14 @@ router.post('/login', (req, res, next) => {
             }
 
             console.log('> New login:\n#', user.user_id);
+
+            const key = hashKey(req.user.pw_hash, req.user.pw_salt);
+
             return res.status(200).json({
                 authenticated: true,
                 message: 'Login successful',
                 // @todo add encryption key to user
-                user: { userId: user.user_id, username: user.username },
+                user: { userId: user.user_id, username: user.username, key },
             });
         });
     })(req, res, next);

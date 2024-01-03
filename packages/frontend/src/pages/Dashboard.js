@@ -36,6 +36,7 @@ export const Dashboard = () => {
             hasFetchedNotes.current = true;
         }
     }, [dispatch, user.userId]);
+    
     return (
         <div className='relative flex flex-col mx-auto h-screen min-h-480'>
             <Modals />

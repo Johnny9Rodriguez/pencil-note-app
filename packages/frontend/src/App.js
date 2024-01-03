@@ -28,6 +28,7 @@ export const App = () => {
                         setUser({
                             userId: data.user.userId,
                             username: data.user.username,
+                            key: data.user.key,
                         })
                     );
                     navigate('/dashboard');

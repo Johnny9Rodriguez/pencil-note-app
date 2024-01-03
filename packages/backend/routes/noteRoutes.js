@@ -12,8 +12,6 @@ router.get('/:userId', async (req, res) => {
 
         const noteData = await db.loadUserNotes(userId);
 
-        console.log(typeof noteData)
-
         if (!noteData) {
             console.error('Database loading error:', error);
             return res.status(500).json({

@@ -11,8 +11,8 @@ export const authSlice = createSlice({
             state.authenticated = action.payload;
         },
         setUser: (state, action) => {
-            const { userId, username } = action.payload;
-            state.user = { userId, username };
+            const { userId, username, key } = action.payload;
+            state.user = { userId, username, key };
         }
     }
 })

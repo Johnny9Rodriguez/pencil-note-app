@@ -4,8 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setIsModifiedSinceLastSync } from '../slices/noteDataSlice';
 import { storeNotes } from '../api/noteApi';
 
-// animate-sync-spin
-
 function SyncButton() {
     const isModifiedSinceLastSync = useSelector(
         (state) => state.noteData.isModifiedSinceLastSync

@@ -39,7 +39,7 @@ export const LoginPage = () => {
         if (data && data.authenticated) {
             dispatch(setAuth(true));
             dispatch(
-                setUser({ userId: data.user.userId, username: data.user.username })
+                setUser({ userId: data.user.userId, username: data.user.username, key: data.user.key })
             );
             navigate('/dashboard');
         }
