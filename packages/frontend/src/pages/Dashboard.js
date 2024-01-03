@@ -17,20 +17,8 @@ export const Dashboard = () => {
     // Load stored notes for authenticated user.
     useEffect(() => {
         if (!hasFetchedNotes.current) {
-            const localFetchedNotes = localStorage.getItem('userNotes');
-            const localLastUpdated = localStorage.getItem('lastUpdated');
-
-            // Fetch notes from server and compare timestamps to load newest set of notes.
             fetchNotes(user.userId).then((noteData) => {
-                if (noteData) {
-                    const notes =
-                        localLastUpdated > noteData.lastUpdated
-                            ? JSON.parse(localFetchedNotes)
-                            : noteData.notes;
-                    dispatch(setNotes(notes));
-                } else {
-                    dispatch(setNotes(localFetchedNotes));
-                }
+                dispatch(setNotes(noteData.notes));   
             });
 
             hasFetchedNotes.current = true;

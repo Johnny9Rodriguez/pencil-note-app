@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAuth, setUser } from './slices/authSlice';
-import { setCryptoKey } from './slices/noteDataSlice';
 import { useNavigate } from 'react-router-dom';
 import { checkAuthentication } from './api/userApi';
 import { LoginPage } from './pages/LoginPage';
@@ -31,7 +30,6 @@ export const App = () => {
                             username: data.user.username,
                         })
                     );
-                    dispatch(setCryptoKey(data.user.key));
                     navigate('/dashboard');
                 }
             };

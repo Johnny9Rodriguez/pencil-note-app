@@ -5,7 +5,6 @@ import { Footer } from '../components/Footer';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setAuth, setUser } from '../slices/authSlice';
-import { setCryptoKey } from '../slices/noteDataSlice';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../api/userApi';
 
@@ -45,7 +44,6 @@ export const LoginPage = () => {
                     username: data.user.username,
                 })
             );
-            dispatch(setCryptoKey(data.user.key));
             navigate('/dashboard');
         }
     };

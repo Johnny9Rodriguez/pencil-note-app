@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setIsModifiedSinceLastSync } from '../slices/noteDataSlice';
@@ -14,19 +14,9 @@ function SyncButton() {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        const lastUpdated = localStorage.getItem('lastUpdated');
-        const lastSynced = localStorage.getItem('lastSynced');
-
-        if (lastUpdated > lastSynced) {
-            dispatch(setIsModifiedSinceLastSync(true));
-        }
-    }, []);
-
     const syncNotesWithServer = () => {
         if (!isSyncing && isModifiedSinceLastSync) {
             setIsSyncing(true);
-            localStorage.setItem('lastSynced', Date.now());
 
             storeNotes({ userId, userNotes }).then(
                 setTimeout(() => {

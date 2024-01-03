@@ -1,20 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
-const storeLocally = (state, userNotes) => {
-    localStorage.setItem('userNotes', JSON.stringify(userNotes));
-    localStorage.setItem('lastUpdated', Date.now());
-
-    state.isModifiedSinceLastSync = true;
-};
-
 export const noteDataSlice = createSlice({
     name: 'noteData',
     initialState: {
         userNotes: [],
         selectedNote: {},
         isModifiedSinceLastSync: false,
-        cryptoKey: null,
     },
     reducers: {
         add: (state) => {
@@ -26,8 +18,7 @@ export const noteDataSlice = createSlice({
 
             state.userNotes = updatedUserNotes;
             state.selectedNote = newNote;
-
-            storeLocally(state, updatedUserNotes);
+            state.isModifiedSinceLastSync = true;
         },
         remove: (state, action) => {
             const noteId = action.payload;
@@ -46,7 +37,7 @@ export const noteDataSlice = createSlice({
                 }
             }
 
-            storeLocally(state, updatedUserNotes);
+            state.isModifiedSinceLastSync = true;
         },
         update: (state, action) => {
             const { noteId, title, content } = action.payload;
@@ -69,10 +60,8 @@ export const noteDataSlice = createSlice({
                     };
                 }
             }
-
-            const updatedUserNotes = state.userNotes;
-
-            storeLocally(state, updatedUserNotes);
+            
+            state.isModifiedSinceLastSync = true;
         },
         select: (state, action) => {
             state.selectedNote = action.payload;
@@ -92,9 +81,6 @@ export const noteDataSlice = createSlice({
         setIsModifiedSinceLastSync: (state, action) => {
             state.isModifiedSinceLastSync = action.payload;
         },
-        setCryptoKey: (state, action) => {
-            state.cryptoKey = action.payload;
-        },
     },
 });
 
@@ -106,7 +92,6 @@ export const {
     init,
     setNotes,
     setIsModifiedSinceLastSync,
-    setCryptoKey,
 } = noteDataSlice.actions;
 
 export default noteDataSlice.reducer;
