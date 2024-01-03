@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAuth, setUser } from './slices/authSlice';
+import { setCryptoKey } from './slices/noteDataSlice';
 import { useNavigate } from 'react-router-dom';
 import { checkAuthentication } from './api/userApi';
 import { LoginPage } from './pages/LoginPage';
@@ -28,9 +29,9 @@ export const App = () => {
                         setUser({
                             userId: data.user.userId,
                             username: data.user.username,
-                            key: data.user.key,
                         })
                     );
+                    dispatch(setCryptoKey(data.user.key));
                     navigate('/dashboard');
                 }
             };
@@ -48,7 +49,11 @@ export const App = () => {
             <Route
                 path='/dashboard'
                 element={
-                    authenticated ? <Dashboard /> : <Navigate to='/login' replace />
+                    authenticated ? (
+                        <Dashboard />
+                    ) : (
+                        <Navigate to='/login' replace />
+                    )
                 }
             />
         </Routes>

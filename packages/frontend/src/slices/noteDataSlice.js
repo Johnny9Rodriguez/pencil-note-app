@@ -14,6 +14,7 @@ export const noteDataSlice = createSlice({
         userNotes: [],
         selectedNote: {},
         isModifiedSinceLastSync: false,
+        cryptoKey: null,
     },
     reducers: {
         add: (state) => {
@@ -91,6 +92,9 @@ export const noteDataSlice = createSlice({
         setIsModifiedSinceLastSync: (state, action) => {
             state.isModifiedSinceLastSync = action.payload;
         },
+        setCryptoKey: (state, action) => {
+            state.cryptoKey = action.payload;
+        },
     },
 });
 
@@ -102,6 +106,7 @@ export const {
     init,
     setNotes,
     setIsModifiedSinceLastSync,
+    setCryptoKey,
 } = noteDataSlice.actions;
 
 export default noteDataSlice.reducer;
