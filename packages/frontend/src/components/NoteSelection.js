@@ -27,7 +27,7 @@ export const NoteSelection = () => {
     return (
         <div
             className={`note-selection ${showSelection ? 'flex' : 'hidden'} flex-col w-full hide-scrollbar items-center gap-1 p-1 bg-black bg-opacity-20
-            sm:w-256 sm:min-w-256
+            md:w-256 sm:min-w-256
             md:flex`}
         >
             {userNotes.map((note, index) => (

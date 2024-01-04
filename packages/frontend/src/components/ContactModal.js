@@ -3,6 +3,7 @@ import { Icon } from '@iconify/react';
 import { useDispatch } from 'react-redux';
 import { setModal } from '../slices/modalSlice';
 import { modalTypes } from '../slices/modalSlice';
+import validator from 'validator';
 
 export const ContactModal = () => {
     const [name, setName] = useState('');
@@ -17,15 +18,12 @@ export const ContactModal = () => {
     const send = (e) => {
         e.preventDefault();
 
-        const emailRegex =
-            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
         if (name.trim() === '') {
             setSendError({
                 errorMessage: 'Please enter your name.',
                 errorFlag: Date.now(),
             });
-        } else if (!emailRegex.test(mail)) {
+        } else if (!validator.isEmail(mail.toLowerCase())) {
             setSendError({
                 errorMessage: 'Please enter a valid e-mail address.',
                 errorFlag: Date.now(),

@@ -54,7 +54,7 @@ export const NoteEditor = () => {
     }
 
     return (
-        <div className={`note-editor truncate ${showSelection ? 'hidden' : 'flex'} flex-col flex-grow bg-white sm:flex`}>
+        <div className={`note-editor truncate ${showSelection ? 'hidden' : 'flex'} flex-col flex-grow bg-white md:flex`}>
             {userNotes.length > 0 ? <Editor selectedNote={selectedNote} handleOnChange={handleOnChange} /> : <Empty />}
         </div>
     )

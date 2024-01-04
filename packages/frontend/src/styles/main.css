@@ -1257,6 +1257,10 @@ input:-webkit-autofill:active {
     display: none;
   }
 
+  .md\:w-256 {
+    width: 256px;
+  }
+
   .md\:flex-row {
     flex-direction: row;
   }
