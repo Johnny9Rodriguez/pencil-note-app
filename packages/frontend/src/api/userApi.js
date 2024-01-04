@@ -103,3 +103,32 @@ export const signup = async (signupData, setSignupError) => {
         console.error('Signup error:', error);
     }
 };
+
+export const deleteUser = async (userId, setDeleteError) => {
+    try {
+        const res = await fetch(BASE_API_URL + '/api/users/delete', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userId }),
+            credentials: 'include',
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            console.error(res.status + ': ' + data.message);
+            setDeleteError({
+                errorMessage: 'Internal Server Error. Please try again.',
+                errorFlag: Date.now(),
+            });
+        } else {
+            console.log(res.status + ': ' + data.message);
+        }
+
+        return data;
+    } catch (error) {
+        console.error('User delete error:', error);
+    }
+};

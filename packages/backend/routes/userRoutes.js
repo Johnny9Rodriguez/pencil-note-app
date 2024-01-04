@@ -12,7 +12,10 @@ const router = express.Router();
 router.get('/auth-check', (req, res) => {
     // 'isAuthenticated()' compares cookie in request with stored session cookies, i.e. if it is stored or not.
     if (req.isAuthenticated()) {
-        console.log('User authentication successful:\n ', chalk.dim(req.user.user_id));
+        console.log(
+            'User authentication successful:\n ',
+            chalk.dim(req.user.user_id)
+        );
 
         return res.status(200).json({
             authenticated: true,
@@ -151,6 +154,30 @@ router.post('/signup', (req, res) => {
             });
         }
     });
+});
+
+// =======================
+// DELETE USER
+// =======================
+router.delete('/delete', (req, res) => {
+    if (req.isAuthenticated()) {
+        const { userId } = req.body;
+
+        db.deleteUser(userId)
+            .then(() => {
+                console.log('Account deleted:\n', chalk.dim(userId));
+                res.status(200).json({
+                    deleted: true,
+                    message: 'Account deleted.',
+                });
+            })
+            .catch(() => {
+                res.status(500).json({
+                    deleted: false,
+                    message: 'Internal Server Error when deleting account',
+                });
+            });
+    }
 });
 
 module.exports = router;

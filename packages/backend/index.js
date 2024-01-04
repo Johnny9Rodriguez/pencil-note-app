@@ -12,19 +12,21 @@ const app = express();
 //  Session Setup
 // ========================
 const pool = new Pool({
-    connectionString: process.env.DB_STRING
+    connectionString: process.env.DB_STRING,
 });
 
-app.use(session({
-    store: new pgSession({
-        pool: pool,
-        tableName: 'session'
-    }),
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 } // Default cookie age = 1 day
-}));
+app.use(
+    session({
+        store: new pgSession({
+            pool: pool,
+            tableName: 'session',
+        }),
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: false,
+        cookie: { maxAge: 1000 * 60 * 60 * 24 }, // Default cookie age = 1 day
+    })
+);
 
 // ========================
 //  Server Setup
@@ -32,10 +34,12 @@ app.use(session({
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(cors({
-    origin: ['http://localhost:3000'],
-    credentials: true
-  }));
+app.use(
+    cors({
+        origin: ['http://localhost:3000'],
+        credentials: true,
+    })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());

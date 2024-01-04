@@ -66,10 +66,17 @@ function storeUserNotes(userId, userNotes) {
     return pool.query(query, [userId, JSON.stringify(userNotes), lastUpdated]);
 }
 
+function deleteUser(userId) {
+    return pool
+        .query('DELETE FROM notes WHERE user_id = $1;', [userId])
+        .then(() => pool.query('DELETE FROM users WHERE user_id = $1;', [userId]));
+}
+
 module.exports = {
     getUserByUsername,
     getUserById,
     storeUser,
     loadUserNotes,
     storeUserNotes,
+    deleteUser,
 };
