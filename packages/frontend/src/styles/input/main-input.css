@@ -7,6 +7,10 @@ body {
     background: linear-gradient(180deg, #10222e, #01111e);
 }
 
+.gradient-bg {
+    background: linear-gradient(180deg, #10222e, #01111e);
+}
+
 h1,
 h3 {
     font-family: 'Caveat', cursive;
@@ -41,11 +45,10 @@ input:focus {
 }
 
 .note-selection {
-    width: 256px;
-    min-width: 256px;
+    /* width: 256px;
+    min-width: 256px; */
     overflow: scroll;
     border: 1px solid #004c5b;
-    border-right: none;
 }
 
 .hide-scrollbar::-webkit-scrollbar {

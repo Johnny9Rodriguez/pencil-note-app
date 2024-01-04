@@ -167,9 +167,7 @@ export const LoginPage = () => {
                     </div>
                 </div>
             </section>
-            <footer className='flex mt-6 bg-black'>
-                <Footer />
-            </footer>
+            <Footer />
         </div>
     );
 };

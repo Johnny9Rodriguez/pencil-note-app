@@ -5,6 +5,7 @@ import { setModal } from '../slices/modalSlice';
 import { modalTypes } from '../slices/modalSlice';
 import { useNavigate } from 'react-router-dom';
 import { setAuth, setUser } from '../slices/authSlice';
+import { toggleShowSelection } from '../slices/selectionSlice';
 import { init } from '../slices/noteDataSlice';
 import { logout } from '../api/userApi';
 import SyncButton from './SyncButton';
@@ -35,7 +36,13 @@ export const Navigation = () => {
                 />
                 <h1 className='text-white text-4xl'>Pencil</h1>
             </div>
-            <div className='flex items-center gap-7'>
+            <div className='flex items-center gap-5 md:gap-7'>
+                <button
+                    className='text-white text-xl md:hidden'
+                    onClick={() => dispatch(toggleShowSelection())}
+                >
+                    <Icon icon='grommet-icons:menu' />
+                </button>
                 <SyncButton />
                 <button
                     className='flex items-center gap-1 text-white hover:text-brightTeal'
@@ -48,10 +55,17 @@ export const Navigation = () => {
                     <p className='hidden md:block text-md'>{user.username}</p>
                 </button>
                 <button
-                    className='border border-white text-white mx-1 px-3 py-1 hover:text-brightCrimson hover:border-brightCrimson'
+                    className='hidden border border-white text-white mx-1 px-3 py-1 hover:text-brightCrimson hover:border-brightCrimson
+                    md:block'
                     onClick={handleLogout}
                 >
                     Logout
+                </button>
+                <button className='md:hidden' onClick={handleLogout}>
+                    <Icon
+                        icon='material-symbols:logout-sharp'
+                        className='text-xl text-white hover:text-brightCrimson'
+                    />
                 </button>
             </div>
         </div>

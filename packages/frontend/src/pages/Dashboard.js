@@ -18,27 +18,25 @@ export const Dashboard = () => {
     useEffect(() => {
         if (!hasFetchedNotes.current) {
             fetchNotes(user.userId).then((noteData) => {
-                dispatch(setNotes(noteData.notes));   
+                dispatch(setNotes(noteData.notes));
             });
 
             hasFetchedNotes.current = true;
         }
     }, [dispatch, user.userId]);
-    
+
     return (
         <div className='relative flex flex-col mx-auto h-screen min-h-480'>
             <Modals />
             <nav className='mx-auto px-6 w-full max-w-1024'>
                 <Navigation />
             </nav>
-            <div className='flex flex-grow mx-auto px-3 w-full max-w-1024 h-4/6'>
+            <div className='flex flex-grow mx-auto px-3 w-full max-w-1024 h-4/6 sm:flex-row-reverse md:flex-row'>
                 <NoteSelection />
                 <NoteEditor />
             </div>
             <div className='flex flex-grow'></div>
-            <footer className='flex mt-6 bg-black'>
-                <Footer />
-            </footer>
+            <Footer />
         </div>
     );
 };

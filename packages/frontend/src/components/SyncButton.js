@@ -44,7 +44,7 @@ function SyncButton() {
                 icon='ic:baseline-sync'
                 className={`text-xl ${syncIconStyle()}`}
             />
-            <p>Sync</p>
+            <p className='hidden md:block'>Sync</p>
         </button>
     );
 }

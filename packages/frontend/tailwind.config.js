@@ -10,12 +10,16 @@ module.exports = {
         'brightTeal': '#00C6B1',
         'darkTeal': '#004C5B'
       },
+      width: {
+        '256': '256px'
+      },
       maxWidth: {
         '1280': '1280px',
         '1024': '1024px'
       },
       minWidth: {
-        '390': '390px'
+        '390': '390px',
+        '256': '256px'
       },
       maxHeight: {
         '600': '600px'
@@ -41,7 +45,7 @@ module.exports = {
       }
     },
     screens: {
-      sm: '390px',
+      sm: '440px',
       md: '768px'
     }
   },

@@ -8,30 +8,35 @@ export const Footer = () => {
     const dispatch = useDispatch();
 
     return (
-        <div className='flex justify-end items-center gap-5 text-sm w-full h-full px-12 py-2 text-white text-opacity-50'>
-            <p>&copy;2023 Joe Pytlik</p>
-            <a
-                href="https://joepytlik.de"
-                target='_blank'
-                rel='noopener noreferrer'
-                className='hover:text-brightTeal'
+        <footer className='mt-6 bg-black'>
+            <div
+                className='grid grid-cols-2 grid-rows-2 place-items-center gap-5 text-sm w-full h-full px-6 py-2 text-white text-opacity-50 
+                sm:flex sm:justify-end sm:items-center sm:px-12 sm:py-2'
             >
-                www.joepytlik.de
-            </a>
-            <button
-                className='text-2xl hover:text-brightTeal'
-                onClick={() => dispatch(setModal(modalTypes.Contact))}
-            >
-                <Icon icon="material-symbols:mail-sharp" />
-            </button>
-            <a
-                href='https://github.com/Johnny9Rodriguez'
-                target='_blank'
-                rel='noopener noreferrer'
-                className='text-2xl hover:text-brightTeal'
-            >
-                <Icon icon="mdi:github" />
-            </a>
-        </div>
-    )
-}
+                <p>&copy;2023 Joe Pytlik</p>
+                <a
+                    href='https://joepytlik.de'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='hover:text-brightTeal'
+                >
+                    www.joepytlik.de
+                </a>
+                <button
+                    className='text-2xl hover:text-brightTeal mb-4 sm:mb-0' 
+                    onClick={() => dispatch(setModal(modalTypes.Contact))}
+                >
+                    <Icon icon='material-symbols:mail-sharp' />
+                </button>
+                <a
+                    href='https://github.com/Johnny9Rodriguez'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='text-2xl hover:text-brightTeal mb-4 sm:mb-0'
+                >
+                    <Icon icon='mdi:github' />
+                </a>
+            </div>
+        </footer>
+    );
+};

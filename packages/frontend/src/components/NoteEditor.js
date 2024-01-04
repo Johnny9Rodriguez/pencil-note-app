@@ -7,7 +7,7 @@ const Editor = ({ selectedNote, handleOnChange }) => {
         <>
             <textarea
                 name='title'
-                className='px-2 pt-4 h-16 text-4xl font-semibold whitespace-nowrap'
+                className='px-2 pt-4 h-16 text-2xl font-semibold whitespace-nowrap sm:text-3xl md:text-4xl'
                 placeholder='Enter a title'
                 value={selectedNote.title}
                 onChange={handleOnChange}
@@ -17,7 +17,7 @@ const Editor = ({ selectedNote, handleOnChange }) => {
             <hr></hr>
             <textarea
                 name='content'
-                className='flex-grow p-2 pl-3 text-xl'
+                className='flex-grow p-2 pl-3 text-base sm:text-lg md:text-xl'
                 placeholder='Enter a note'
                 value={selectedNote.content}
                 onChange={handleOnChange}
@@ -45,6 +45,7 @@ const Empty = () => {
 export const NoteEditor = () => {
     const userNotes = useSelector((state) => state.noteData.userNotes);
     const selectedNote = useSelector((state) => state.noteData.selectedNote);
+    const showSelection = useSelector((state) => state.selection.showSelection);
     const dispatch = useDispatch();
 
     const handleOnChange = async (event) => {
@@ -53,7 +54,7 @@ export const NoteEditor = () => {
     }
 
     return (
-        <div className='note-editor truncate flex flex-col flex-grow bg-white'>
+        <div className={`note-editor truncate ${showSelection ? 'hidden' : 'flex'} flex-col flex-grow bg-white sm:flex`}>
             {userNotes.length > 0 ? <Editor selectedNote={selectedNote} handleOnChange={handleOnChange} /> : <Empty />}
         </div>
     )
