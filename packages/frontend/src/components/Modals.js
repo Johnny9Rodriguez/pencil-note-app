@@ -12,7 +12,7 @@ export const Modals = () => {
             {modalType === modalTypes.DelAcc && (
                 <div
                     id='delete-account-modal'
-                    className='absolute z-50 w-full h-full bg-black bg-opacity-70'
+                    className='absolute z-50 w-full h-full bg-black bg-opacity-80 px-2'
                 >
                     <DeleteAccountModal />
                 </div>
@@ -20,7 +20,7 @@ export const Modals = () => {
             {modalType === modalTypes.Contact && (
                 <div
                     id='delete-account-modal'
-                    className='absolute z-50 w-full h-full bg-black bg-opacity-70'
+                    className='absolute z-50 w-full h-full bg-black bg-opacity-80 px-2'
                 >
                     <ContactModal />
                 </div>

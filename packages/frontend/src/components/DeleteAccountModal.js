@@ -1,42 +1,99 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
 import { useDispatch } from 'react-redux';
 import { setModal } from '../slices/modalSlice';
 import { modalTypes } from '../slices/modalSlice';
 
 export const DeleteAccountModal = () => {
-  const dispatch = useDispatch();
+    const [inputValue, setInputValue] = useState('');
+    const [deleteError, setDeleteError] = useState({
+        errorMessage: '',
+        errorFlag: null,
+    });
+    const dispatch = useDispatch();
 
-  return (
-    <div className='flex flex-col w-96 m-auto mt-32 bg-white'>
-      <div id='modal-header' className='modal-header flex justify-between w-full px-5 py-2'>
-        <h2 className='text-2xl text-white'>Delete Account?</h2>
-        <button
-          className='text-white text-2xl hover:text-brightTeal'
-          onClick={() => dispatch(setModal(modalTypes.None))}
-        >
-          <Icon icon="material-symbols:close" />
-        </button>
-      </div>
-      <div className='px-5 pt-1 pb-2 mt-3'>
-        <p className='text-md mb-2'>
-          Type <span className='text-brightCrimson'>delete</span> below to confirm. This action is irreversible and will erase all your data.
-        </p>
-      </div>
-      <hr className='m-0 p-0' />
-      <form action="" className='flex gap-1 px-5 py-3'>
-        <input 
-          type="text" 
-          name="delete-account" 
-          className='px-1 border border-darkTeal focus:outline-none' 
-          placeholder='Type delete' />
-        <button 
-          type='submit' 
-          onClick={(e) => e.preventDefault()} 
-          className='text-2xl p-0.5 px-5 text-white bg-darkTeal hover:bg-brightTeal'>
-          <Icon icon="material-symbols-light:send" />
-        </button>
-      </form>
-    </div>
-  )
-}
+    const handleDelete = (e) => {
+        e.preventDefault();
+
+        if (inputValue.toLowerCase() === 'delete') {
+            console.log('Deleting Account');
+        } else {
+            setDeleteError({
+                errorMessage: 'Wrong input.',
+                errorFlag: Date.now(),
+            });
+        }
+    };
+
+    const resetError = () => {
+        setDeleteError({ errorMessage: '', errorFlag: null });
+    };
+
+    const DeleteError = () => {
+        return (
+            <div className='flex justify-center items-center gap-3 p-2 text-brightCrimson border border-brightCrimson text-sm bg-brightCrimson bg-opacity-10'>
+                <Icon
+                    icon='ic:baseline-warning'
+                    className='text-lg animate-error-shake'
+                />
+                <p className='animate-error-shake'>
+                    {deleteError.errorMessage}
+                </p>
+            </div>
+        );
+    };
+
+    return (
+        <div className='flex flex-col max-w-400 min-w-300 m-auto mt-12 gradient-bg text-white'>
+            <div className='flex flex-col gap-4 p-4 bg-black bg-opacity-20 border border-darkTeal'>
+                <div id='modal-header' className='flex justify-between'>
+                    <h2 className='text-3xl'>Delete Account?</h2>
+                    <button
+                        className='text-2xl hover:text-brightTeal'
+                        onClick={() => {
+                            dispatch(setModal(modalTypes.None));
+                            resetError();
+                        }}
+                    >
+                        <Icon icon='material-symbols:close' />
+                    </button>
+                </div>
+                <p className='text-md text-gray-400'>
+                    Type <span className='text-brightCrimson'>delete</span>{' '}
+                    below to confirm. This action is irreversible and will erase
+                    all your data.
+                </p>
+                <form
+                    className='flex flex-col gap-4'
+                    onSubmit={(e) => handleDelete(e)}
+                >
+                    <div className='flex py-2 w-full border border-darkTeal'>
+                        <Icon
+                            icon='material-symbols-light:delete-outline-sharp'
+                            className='self-center w-8 text-2xl text-brightTeal'
+                        />
+                        <input
+                            type='text'
+                            name='delete-account'
+                            value={inputValue}
+                            onChange={(e) => {
+                                setInputValue(e.target.value);
+                                resetError();
+                            }}
+                            placeholder='Type delete'
+                            className='w-full bg-white bg-opacity-0'
+                            spellCheck='false'
+                        />
+                    </div>
+                    <button
+                        type='submit'
+                        className='self-center w-fit border border-white text-white px-7 py-1 hover:border-brightCrimson hover:text-brightCrimson'
+                    >
+                        Delete
+                    </button>
+                </form>
+                {deleteError.errorFlag && <DeleteError />}
+            </div>
+        </div>
+    );
+};

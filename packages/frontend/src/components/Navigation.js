@@ -38,7 +38,7 @@ export const Navigation = () => {
             </div>
             <div className='flex items-center gap-5 md:gap-7'>
                 <button
-                    className='text-white text-xl md:hidden'
+                    className='text-white text-xl hover:text-brightTeal md:hidden'
                     onClick={() => dispatch(toggleShowSelection())}
                 >
                     <Icon icon='grommet-icons:menu' />
