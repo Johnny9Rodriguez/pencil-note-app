@@ -31,7 +31,7 @@ export const DeleteAccountModal = () => {
                     errorFlag: Date.now(),
                 });
             } else {
-                console.log(user.userId)
+                console.log(user.userId);
                 const data = await deleteUser(user.userId, setDeleteError);
 
                 if (data && data.deleted) {
@@ -109,12 +109,14 @@ export const DeleteAccountModal = () => {
                 {deleteSuccess ? (
                     <div className='text-white text-opacity-50'>
                         <p>
-                            Account deleted. You will be redirected to the
+                            Account deleted. You will be redirected to the{' '}
                             <Link
                                 to='/login'
                                 className='text-brightTeal hover:text-white'
+                                onClick={() =>
+                                    dispatch(setModal({ modalType: 'none' }))
+                                }
                             >
-                                {' '}
                                 Login
                             </Link>{' '}
                             page in {timer} seconds.

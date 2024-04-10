@@ -1199,10 +1199,6 @@ input:-webkit-autofill:active {
     display: flex;
   }
 
-  .sm\:w-256 {
-    width: 256px;
-  }
-
   .sm\:min-w-256 {
     min-width: 256px;
   }
