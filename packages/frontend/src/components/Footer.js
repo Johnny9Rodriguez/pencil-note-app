@@ -13,7 +13,7 @@ export const Footer = () => {
                 className='grid grid-cols-2 grid-rows-2 place-items-center text-sm w-full h-full px-2 text-white text-opacity-50 
                 sm:flex sm:justify-end sm:items-center sm:px-12 sm:py-2 sm:gap-5'
             >
-                <p>&copy;2023 Joe Pytlik</p>
+                <p>&copy;2024 Joe Pytlik</p>
                 <a
                     href='https://joepytlik.de'
                     target='_blank'
