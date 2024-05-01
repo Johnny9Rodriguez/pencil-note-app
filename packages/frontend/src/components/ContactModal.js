@@ -1,40 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import { useDispatch } from 'react-redux';
 import { setModal } from '../slices/modalSlice';
 import { modalTypes } from '../slices/modalSlice';
 import validator from 'validator';
+import { sendMessage } from '../api/contactApi';
 
 export const ContactModal = () => {
-    const [name, setName] = useState('');
-    const [mail, setMail] = useState('');
-    const [text, setText] = useState('');
+    const [name, setName] = useState('Testperson XY');
+    const [address, setAddress] = useState('test@person.xy');
+    const [message, setMessage] = useState('Das hier ist ein Test.');
     const [sendError, setSendError] = useState({
         errorMessage: '',
         errorFlag: null,
     });
+    const [isSending, setIsSending] = useState(false);
+    const [hasSent, setHasSent] = useState(false);
+    const [timer, setTimer] = useState(5);
     const dispatch = useDispatch();
 
-    const send = (e) => {
+    const send = async (e) => {
+        if (isSending) return;
+
         e.preventDefault();
+        setIsSending(true);
 
         if (name.trim() === '') {
             setSendError({
                 errorMessage: 'Please enter your name.',
                 errorFlag: Date.now(),
             });
-        } else if (!validator.isEmail(mail.toLowerCase())) {
+        } else if (!validator.isEmail(address.toLowerCase())) {
             setSendError({
                 errorMessage: 'Please enter a valid e-mail address.',
                 errorFlag: Date.now(),
             });
-        } else if (text.trim() === '') {
+        } else if (message.trim() === '') {
             setSendError({
                 errorMessage: 'Message is empty.',
                 errorFlag: Date.now(),
             });
         } else {
-            // Send message to email microservice
+            // Send message to backend.
+            const responseData = await sendMessage(
+                { name, address, message },
+                setSendError
+            );
+
+            // do something after data
+            if (responseData.status === 200) {
+                setHasSent(true);
+            }
+
+            setIsSending(false);
         }
     };
 
@@ -54,21 +72,9 @@ export const ContactModal = () => {
         );
     };
 
-    return (
-        <div className='flex flex-col max-w-400 min-w-300 m-auto mt-12 gradient-bg text-white'>
-            <div className='flex flex-col gap-4 p-4 bg-black bg-opacity-20 border border-darkTeal'>
-                <div id='modal-header' className='flex justify-between'>
-                    <h2 className='text-3xl'>Contact</h2>
-                    <button
-                        className='text-2xl hover:text-brightTeal'
-                        onClick={() => {
-                            dispatch(setModal(modalTypes.None));
-                            resetError();
-                        }}
-                    >
-                        <Icon icon='material-symbols:close' />
-                    </button>
-                </div>
+    const ContactForm = () => {
+        return (
+            <>
                 <form className='flex flex-col gap-4' onSubmit={(e) => send(e)}>
                     <div className='flex py-2 w-full border border-darkTeal'>
                         <Icon
@@ -97,9 +103,9 @@ export const ContactModal = () => {
                         <input
                             type='text'
                             name='contact-mail'
-                            value={mail}
+                            value={address}
                             onChange={(e) => {
-                                setMail(e.target.value);
+                                setAddress(e.target.value);
                                 resetError();
                             }}
                             placeholder='E-Mail'
@@ -110,9 +116,9 @@ export const ContactModal = () => {
                     </div>
                     <textarea
                         name='contact-msg'
-                        value={text}
+                        value={message}
                         onChange={(e) => {
-                            setText(e.target.value);
+                            setMessage(e.target.value);
                             resetError();
                         }}
                         className='h-40 px-2 py-2 w-full bg-white bg-opacity-0 border border-darkTeal focus:outline-none'
@@ -122,12 +128,74 @@ export const ContactModal = () => {
                     />
                     <button
                         type='submit'
-                        className='self-center w-fit border border-white text-white px-7 py-1 hover:border-brightTeal hover:text-brightTeal'
+                        className='flex self-center justify-center items-center w-24 h-8 border border-white text-white hover:border-brightTeal hover:text-brightTeal'
                     >
-                        Send
+                        {isSending && (
+                            <Icon
+                                icon='tdesign:load'
+                                className='animate-spin'
+                            />
+                        )}
+                        {!isSending && 'Send'}
                     </button>
                 </form>
                 {sendError.errorFlag && <SendError />}
+            </>
+        );
+    };
+
+    const SuccessMessage = () => {
+        return (
+            <>
+                <div className='text-lg'>Message sent successfully!</div>
+                <div className='text-sm font-thin opacity-50'>Closing window in {timer} seconds.</div>
+            </>
+        );
+    };
+
+    useEffect(() => {
+        let interval;
+
+        if (hasSent && timer > 0) {
+            interval = setInterval(() => {
+                setTimer((prevTimer) => prevTimer - 1);
+            }, 1000);
+        }
+
+        // Redirect when timer reaches 0
+        if (hasSent && timer === 0) {
+            setHasSent(false);
+            setTimer(5);
+            dispatch(setModal(modalTypes.None));
+        }
+
+        // Cleanup interval
+        return () => {
+            if (interval) {
+                clearInterval(interval);
+            }
+        };
+    }, [hasSent, timer, dispatch]);
+
+    return (
+        <div className='flex flex-col max-w-400 min-w-300 m-auto mt-12 gradient-bg text-white'>
+            <div className='flex flex-col gap-4 p-4 bg-black bg-opacity-20 border border-darkTeal'>
+                <div id='modal-header' className='flex justify-between'>
+                    <h2 className='text-3xl'>Contact</h2>
+                    <button
+                        className='text-2xl hover:text-brightTeal'
+                        onClick={() => {
+                            setHasSent(false);
+                            setTimer(5);
+                            dispatch(setModal(modalTypes.None));
+                            resetError();
+                        }}
+                    >
+                        <Icon icon='material-symbols:close' />
+                    </button>
+                </div>
+                {hasSent && <SuccessMessage />}
+                {!hasSent && <ContactForm />}
             </div>
         </div>
     );
