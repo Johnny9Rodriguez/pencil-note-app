@@ -7,9 +7,9 @@ import validator from 'validator';
 import { sendMessage } from '../api/contactApi';
 
 export const ContactModal = () => {
-    const [name, setName] = useState('Testperson XY');
-    const [address, setAddress] = useState('test@person.xy');
-    const [message, setMessage] = useState('Das hier ist ein Test.');
+    const [name, setName] = useState('');
+    const [address, setAddress] = useState('');
+    const [message, setMessage] = useState('');
     const [sendError, setSendError] = useState({
         errorMessage: '',
         errorFlag: null,
@@ -148,7 +148,9 @@ export const ContactModal = () => {
         return (
             <>
                 <div className='text-lg'>Message sent successfully!</div>
-                <div className='text-sm font-thin opacity-50'>Closing window in {timer} seconds.</div>
+                <div className='text-sm font-thin opacity-50'>
+                    Closing window in {timer} seconds.
+                </div>
             </>
         );
     };
