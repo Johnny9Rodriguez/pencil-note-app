@@ -1,8 +1,8 @@
-const BASE_API_URL = 'http://localhost:3001';
+const BASE_API_URL = 'https://pencil.joepytlik.de/api';
 
 export const fetchNotes = async (userId) => {
     try {
-        const res = await fetch(BASE_API_URL + `/api/notes/${userId}`, {
+        const res = await fetch(BASE_API_URL + `/notes/${userId}`, {
             method: 'GET',
             credentials: 'include',
         });
@@ -24,7 +24,7 @@ export const fetchNotes = async (userId) => {
 
 export const storeNotes = async (noteData) => {
     try {
-        const res = await fetch(BASE_API_URL + '/api/notes', {
+        const res = await fetch(BASE_API_URL + '/notes', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

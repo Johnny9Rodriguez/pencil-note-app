@@ -6,11 +6,11 @@ const contactRouter = require('./routes/contactRoutes');
 
 const router = express.Router();
 
-router.use('/api/users', userRouter);
-router.use('/api/notes', noteRouter);
-router.use('/api/contact', contactRouter);
+router.use('/users', userRouter);
+router.use('/notes', noteRouter);
+router.use('/contact', contactRouter);
 
-router.get('/api/test', async (req, res) => {
+router.get('/test', async (req, res) => {
     res.status(200).send({ message: 'Test successful' });
 });
 

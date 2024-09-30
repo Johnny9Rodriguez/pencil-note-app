@@ -1,8 +1,9 @@
-const BASE_API_URL = 'http://localhost:3001';
+const BASE_API_URL = 'https://pencil.joepytlik.de/api';
+// const BASE_API_URL = 'http://localhost:3001';
 
 export const checkAuthentication = async () => {
     try {
-        const res = await fetch(BASE_API_URL + '/api/users/auth-check', {
+        const res = await fetch(BASE_API_URL + '/users/auth-check', {
             method: 'GET',
             credentials: 'include',
         });
@@ -23,7 +24,7 @@ export const checkAuthentication = async () => {
 
 export const login = async (loginData, setLoginError) => {
     try {
-        const res = await fetch(BASE_API_URL + '/api/users/login', {
+        const res = await fetch(BASE_API_URL + '/users/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -53,7 +54,7 @@ export const login = async (loginData, setLoginError) => {
 
 export const logout = async () => {
     try {
-        const res = await fetch(BASE_API_URL + '/api/users/logout', {
+        const res = await fetch(BASE_API_URL + '/users/logout', {
             method: 'POST',
             credentials: 'include',
         });
@@ -74,7 +75,7 @@ export const logout = async () => {
 
 export const signup = async (signupData, setSignupError) => {
     try {
-        const res = await fetch(BASE_API_URL + '/api/users/signup', {
+        const res = await fetch(BASE_API_URL + '/users/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -106,7 +107,7 @@ export const signup = async (signupData, setSignupError) => {
 
 export const deleteUser = async (userId, setDeleteError) => {
     try {
-        const res = await fetch(BASE_API_URL + '/api/users/delete', {
+        const res = await fetch(BASE_API_URL + '/users/delete', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

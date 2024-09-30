@@ -1,4 +1,4 @@
-const BASE_API_URL = 'http://localhost:3001';
+const BASE_API_URL = 'https://pencil.joepytlik.de/api';
 
 export const sendMessage = async (message, setSendError) => {
     const requestData = {
@@ -11,7 +11,7 @@ export const sendMessage = async (message, setSendError) => {
     };
 
     try {
-        const res = await fetch(BASE_API_URL + '/api/contact', {
+        const res = await fetch(BASE_API_URL + '/contact', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
