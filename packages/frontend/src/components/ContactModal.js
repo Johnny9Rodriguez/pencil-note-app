@@ -6,53 +6,88 @@ import { modalTypes } from '../slices/modalSlice';
 import validator from 'validator';
 import { sendMessage } from '../api/contactApi';
 
-export const ContactModal = () => {
+export function ContactModal() {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [message, setMessage] = useState('');
+    const [isSending, setIsSending] = useState(false);
+    const [hasSent, setHasSent] = useState(false);
     const [sendError, setSendError] = useState({
         errorMessage: '',
         errorFlag: null,
     });
-    const [isSending, setIsSending] = useState(false);
-    const [hasSent, setHasSent] = useState(false);
     const [timer, setTimer] = useState(5);
+
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        let interval;
+
+        if (hasSent && timer > 0) {
+            interval = setInterval(() => {
+                setTimer((prevTimer) => prevTimer - 1);
+            }, 1000);
+        }
+
+        // Redirect when timer reaches 0
+        if (hasSent && timer === 0) {
+            setHasSent(false);
+            setTimer(5);
+            dispatch(setModal(modalTypes.None));
+        }
+
+        // Cleanup interval
+        return () => {
+            if (interval) {
+                clearInterval(interval);
+            }
+        };
+    }, [hasSent, timer, dispatch]);
+
+    const validateInputs = () => {
+        if (validator.isEmpty(name)) {
+            setSendError({
+                errorMessage: 'Name is required.',
+                errorFlag: Date.now(),
+            });
+            return false;
+        }
+        if (!validator.isEmail(address)) {
+            setSendError({
+                errorMessage: 'Invalid email address.',
+                errorFlag: Date.now(),
+            });
+            return false;
+        }
+        if (validator.isEmpty(message)) {
+            setSendError({
+                errorMessage: 'Message is required.',
+                errorFlag: Date.now(),
+            });
+            return false;
+        }
+        return true;
+    };
+
     const send = async (e) => {
+        e.preventDefault();
         if (isSending) return;
 
-        e.preventDefault();
-        setIsSending(true);
-
-        if (name.trim() === '') {
-            setSendError({
-                errorMessage: 'Please enter your name.',
-                errorFlag: Date.now(),
-            });
-        } else if (!validator.isEmail(address.toLowerCase())) {
-            setSendError({
-                errorMessage: 'Please enter a valid e-mail address.',
-                errorFlag: Date.now(),
-            });
-        } else if (message.trim() === '') {
-            setSendError({
-                errorMessage: 'Message is empty.',
-                errorFlag: Date.now(),
-            });
-        } else {
-            // Send message to backend.
-            const responseData = await sendMessage(
-                { name, address, message },
-                setSendError
-            );
-
-            // do something after data
-            if (responseData.status === 200) {
-                setHasSent(true);
-            }
-
+        if (!validateInputs()) {
             setIsSending(false);
+            return;
+        }
+
+        setIsSending(true);
+        const response = await sendMessage(
+            { name, address, message },
+            setSendError
+        );
+        setIsSending(false);
+
+        if (response.status === 200) {
+            setHasSent(true);
+            setTimer(5);
         }
     };
 
@@ -72,7 +107,18 @@ export const ContactModal = () => {
         );
     };
 
-    const ContactForm = () => {
+    const renderSuccessMessage = () => {
+        return (
+            <>
+                <div className='text-lg'>Message sent successfully!</div>
+                <div className='text-sm font-thin opacity-50'>
+                    Closing window in {timer} seconds.
+                </div>
+            </>
+        );
+    };
+
+    const renderContactForm = () => {
         return (
             <>
                 <form className='flex flex-col gap-4' onSubmit={(e) => send(e)}>
@@ -144,41 +190,6 @@ export const ContactModal = () => {
         );
     };
 
-    const SuccessMessage = () => {
-        return (
-            <>
-                <div className='text-lg'>Message sent successfully!</div>
-                <div className='text-sm font-thin opacity-50'>
-                    Closing window in {timer} seconds.
-                </div>
-            </>
-        );
-    };
-
-    useEffect(() => {
-        let interval;
-
-        if (hasSent && timer > 0) {
-            interval = setInterval(() => {
-                setTimer((prevTimer) => prevTimer - 1);
-            }, 1000);
-        }
-
-        // Redirect when timer reaches 0
-        if (hasSent && timer === 0) {
-            setHasSent(false);
-            setTimer(5);
-            dispatch(setModal(modalTypes.None));
-        }
-
-        // Cleanup interval
-        return () => {
-            if (interval) {
-                clearInterval(interval);
-            }
-        };
-    }, [hasSent, timer, dispatch]);
-
     return (
         <div className='flex flex-col max-w-400 min-w-300 m-auto mt-12 gradient-bg text-white'>
             <div className='flex flex-col gap-4 p-4 bg-black bg-opacity-20 border border-darkTeal'>
@@ -196,9 +207,9 @@ export const ContactModal = () => {
                         <Icon icon='material-symbols:close' />
                     </button>
                 </div>
-                {hasSent && <SuccessMessage />}
-                {!hasSent && <ContactForm />}
+                {hasSent && renderSuccessMessage()}
+                {!hasSent && renderContactForm()}
             </div>
         </div>
     );
-};
+}

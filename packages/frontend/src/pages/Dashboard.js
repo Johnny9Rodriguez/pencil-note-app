@@ -18,8 +18,7 @@ export const Dashboard = () => {
     useEffect(() => {
         if (!hasFetchedNotes.current) {
             fetchNotes(user.userId).then((noteData) => {
-                // dispatch(setNotes(noteData.notes));
-                dispatch(setNotes([]));
+                dispatch(setNotes(noteData.notes));
             });
 
             hasFetchedNotes.current = true;
