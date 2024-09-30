@@ -10,6 +10,10 @@ router.use('/api/users', userRouter);
 router.use('/api/notes', noteRouter);
 router.use('/api/contact', contactRouter);
 
+router.get('/api/test', async (req, res) => {
+    res.status(200).send({ message: 'Test successful' });
+});
+
 // router.put('/api/note', async (req, res) => {
 //     if (req.isAuthenticated()) {
 //         const { id, title, content } = req.body;
