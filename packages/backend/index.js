@@ -37,7 +37,8 @@ app.use(express.urlencoded({ extended: false }));
 app.enable('trust proxy');
 app.use(
     cors({
-        origin: ['http://localhost:3000', 'https://pencil.joepytlik.de'],
+        // origin: ['http://localhost:3000', 'https://pencil.joepytlik.de'],
+        origin: ['https://pencil.joepytlik.de'],
         credentials: true,
     })
 );
