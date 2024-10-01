@@ -23,7 +23,7 @@ export const Navigation = () => {
             dispatch(setAuth(false));
             dispatch(setUser({ userId: null, username: null }));
             dispatch(init());
-            navigate('/login');
+            navigate('/');
         }
     };
 

@@ -76,7 +76,7 @@ export const DeleteAccountModal = () => {
         // Redirect when timer reaches 0
         if (deleteSuccess && timer === 0) {
             dispatch(setModal(modalTypes.None));
-            navigate('/login');
+            navigate('/');
         }
 
         // Cleanup interval
@@ -111,7 +111,7 @@ export const DeleteAccountModal = () => {
                         <p>
                             Account deleted. You will be redirected to the{' '}
                             <Link
-                                to='/login'
+                                to='/'
                                 className='text-brightTeal hover:text-white'
                                 onClick={() =>
                                     dispatch(setModal({ modalType: 'none' }))

@@ -72,7 +72,7 @@ export const SignUpPage = () => {
 
         // Redirect when timer reaches 0
         if (signupSuccess && timer === 0) {
-            navigate('/login');
+            navigate('/');
         }
 
         // Cleanup interval
@@ -157,7 +157,7 @@ export const SignUpPage = () => {
                             <p>
                                 You will be redirected to the
                                 <Link
-                                    to='/login'
+                                    to='/'
                                     className='text-brightTeal hover:text-white'
                                 >
                                     {' '}
@@ -214,7 +214,7 @@ export const SignUpPage = () => {
                         <div className='flex gap-x-2'>
                             <p>Already have an account?</p>
                             <Link
-                                to='/login'
+                                to='/'
                                 className='text-brightTeal hover:text-white'
                             >
                                 Login

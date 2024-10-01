@@ -42,7 +42,7 @@ export const App = () => {
     return (
         <Routes>
             <Route index element={<LoginPage />}></Route>
-            <Route path='/login' element={<LoginPage />}></Route>
+            {/* <Route path='/' element={<LoginPage />}></Route> */}
             <Route path='/signup' element={<SignUpPage />}></Route>
             <Route
                 path='/dashboard'
@@ -50,7 +50,7 @@ export const App = () => {
                     authenticated ? (
                         <Dashboard />
                     ) : (
-                        <Navigate to='/login' replace />
+                        <Navigate to='/' replace />
                     )
                 }
             />
