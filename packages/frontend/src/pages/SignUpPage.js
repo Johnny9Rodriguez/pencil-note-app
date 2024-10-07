@@ -138,7 +138,7 @@ export const SignUpPage = () => {
     };
 
     return (
-        <div className='relative flex flex-col justify-between mx-auto h-screen min-h-480'>
+        <div className='relative flex flex-col justify-between mx-auto h-dvh min-h-480'>
             <Modals />
             <section id='signup' className='flex flex-col mx-auto mt-12 w-80'>
                 <header className='flex justify-end items-center gap-x-1 pr-3 pb-1'>

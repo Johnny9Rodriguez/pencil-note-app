@@ -26,7 +26,7 @@ export const Dashboard = () => {
     }, [dispatch, user.userId]);
 
     return (
-        <div className='relative flex flex-col mx-auto h-screen min-h-480'>
+        <div className='relative flex flex-col mx-auto h-dvh min-h-480'>
             <Modals />
             <nav className='mx-auto px-6 w-full max-w-1024'>
                 <Navigation />
