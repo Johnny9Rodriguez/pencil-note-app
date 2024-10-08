@@ -652,10 +652,6 @@ video {
   height: 100%;
 }
 
-.h-screen {
-  height: 100vh;
-}
-
 .min-h-480 {
   min-height: 480px;
 }
@@ -1202,29 +1198,31 @@ input:-webkit-autofill:active {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.hover\:border-brightCrimson:hover {
-  --tw-border-opacity: 1;
-  border-color: rgb(220 20 60 / var(--tw-border-opacity));
-}
+@media (hover: hover) and (pointer: fine) {
+  .hover\:border-brightCrimson:hover {
+    --tw-border-opacity: 1;
+    border-color: rgb(220 20 60 / var(--tw-border-opacity));
+  }
 
-.hover\:border-brightTeal:hover {
-  --tw-border-opacity: 1;
-  border-color: rgb(0 198 177 / var(--tw-border-opacity));
-}
+  .hover\:border-brightTeal:hover {
+    --tw-border-opacity: 1;
+    border-color: rgb(0 198 177 / var(--tw-border-opacity));
+  }
 
-.hover\:text-brightCrimson:hover {
-  --tw-text-opacity: 1;
-  color: rgb(220 20 60 / var(--tw-text-opacity));
-}
+  .hover\:text-brightCrimson:hover {
+    --tw-text-opacity: 1;
+    color: rgb(220 20 60 / var(--tw-text-opacity));
+  }
 
-.hover\:text-brightTeal:hover {
-  --tw-text-opacity: 1;
-  color: rgb(0 198 177 / var(--tw-text-opacity));
-}
+  .hover\:text-brightTeal:hover {
+    --tw-text-opacity: 1;
+    color: rgb(0 198 177 / var(--tw-text-opacity));
+  }
 
-.hover\:text-white:hover {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  .hover\:text-white:hover {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+  }
 }
 
 .focus\:outline-none:focus {
